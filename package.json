@@ -3,8 +3,8 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "nodemon --exec ts-node ./server/src/index.ts",
-    "server": "node --loader ts-node/esm ./server/index.ts",
+    "server": "nodemon --exec ts-node ./server/src/index.ts",
+    "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"

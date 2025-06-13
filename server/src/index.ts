@@ -1,20 +1,14 @@
-import type { Request, Response } from 'express';
-
-const express = require('express')
-const patientsRouter = require('./routes/patients.routes')
+import express from 'express';
+import patientsRouter from './routes/patients.routes';
 
 const app = express();
-const port = 3000
+const port = 3000;
 
+// Esto permite leer JSON desde el body
+app.use(express.json());
 
-app.get('/', (req: Request, res: Response) => {
-    res.send('Hello world from express')
-})
+app.use('/dashboard', patientsRouter);
 
-
-app.use('/patients', patientsRouter)
-
-
-app.listen (port, () => {
-    console.log(`Server is running on http://localhost:${port}`)
-})
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
+});

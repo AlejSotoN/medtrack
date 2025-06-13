@@ -1,10 +1,9 @@
-import express, {  type Request, type Response } from 'express';
+import express from 'express';
+import { getAllPatients, createPatient } from '../controllers/patients.controller';
 
 const router = express.Router();
 
-router.get('/', (req: Request, res: Response) => {
-    res.send('Patients Page');
-}
-);
+router.get('/', getAllPatients);
+router.post('/', createPatient);
 
-module.exports = router;
+export default router;
