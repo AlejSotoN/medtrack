@@ -5,7 +5,8 @@ function App() {
 
   return (
     <>
-    Hello world from React
+    <h3> HOLI
+      </h3>
     </>
     
   )
