@@ -1,14 +1,9 @@
 import React from 'react'
 
-interface Props {}
-
-const Auth = (props: Props) => {
+export default function Auth() {
   return (
     <div>
-      Perico perico auth Page
+      Auth Page
     </div>
   )
 }
-
-
-export default Auth

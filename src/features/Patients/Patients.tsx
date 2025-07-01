@@ -1,14 +1,9 @@
 import React from 'react'
 
-interface Props {}
-
-const Patients = (props: Props) => {
+export default function Patients() {
   return (
     <div>
-      Patients Page
+      Patients Page     
     </div>
   )
 }
-
-
-export default Patients

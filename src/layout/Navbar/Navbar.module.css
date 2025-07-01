@@ -1,0 +1,13 @@
+.navbarDiv {
+    min-width: min-content;
+    min-height: auto;
+    max-width:  auto;
+    padding: 1rem;
+    cursor: pointer;
+}
+
+.navbarNav {
+    display: flex;
+    position: fixed;
+    top: 1rem;
+}

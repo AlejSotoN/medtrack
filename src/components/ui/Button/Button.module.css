@@ -1,0 +1,25 @@
+.button {
+    background-color: var(--color-primary);
+    border: none;
+    border-radius: 6px;
+    color: var(--color-foreground);
+    padding: 12px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    min-height: 40px;
+    
+}
+
+.button:active {
+    transform: scale(0.9); /* Even darker green on click */
+}
+.button:disabled {
+    background-color: #ccc; /* Grey when disabled */
+    cursor: not-allowed;
+}

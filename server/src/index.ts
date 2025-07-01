@@ -1,10 +1,11 @@
 import express from 'express';
 import patientsRouter from './patients/patients.routes';
+import cors from 'cors';
 
 const app = express();
 const port = 3000;
 
-// Esto permite leer JSON desde el body
+app.use(cors());
 app.use(express.json());
 
 // Dashboard route to see patients

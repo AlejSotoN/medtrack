@@ -1,4 +1,0 @@
-INSERT INTO customers (first_name, last_name, email) VALUES
-('Alice', 'Wonderland', 'alice@example.com'),
-('Bob', 'The Builder', 'bob@example.com')
-

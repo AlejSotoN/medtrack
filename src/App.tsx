@@ -1,15 +1,18 @@
-import { Outlet } from 'react-router'
 import React from 'react'
+import { 
+  QueryClientProvider, 
+  QueryClient 
+} from '@tanstack/react-query'
 
-function App() {
+import Button from './components/ui/Button/Button'
+import Input from './components/ui/Input/Input'
+import Navbar from './layout/Navbar/Navbar'
+
+export default function App() {
 
   return (
-    <>
-    <h3> HOLI
-      </h3>
-    </>
-    
+      <div className="App">
+
+      </div>
   )
 }
-
-export default App

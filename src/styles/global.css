@@ -1,26 +1,44 @@
 :root {
-    --color-primary: #2563eb;
-    --color-secondary: #64748b;
-    --color-accent: #38bdf8;
-    --color-background: #f9fafb;
-    --color-foreground: #f1f5f9;
-    --color-warning: #fbbf24;
-    --color-success: #22c55e;
-    --color-error: #ef4444;
-    --color-border: #e5e7eb;
+    /* Light Mode */
+    --color-primary: #2563EB;       /* buttons, links */
+    --color-secondary: #64748B;     /* secondary texts, tags */
+    --color-accent: #38BDF8;        /* visual details */
+    --color-background: #F9FAFB;    /* main background */
+    --color-foreground: #111827;    /* main text color */
+    --color-warning: #FBBF24;       /* warnings, alerts */
+    --color-success: #22C55E;       /* success messages */
+    --color-error: #EF4444;         /* error messages */
+    --color-border: #E5E7EB;        /* borders, dividers */
     --font-family: 'Inter', sans-serif;
 }
 
 body {
     font-family: var(--font-family);
+    font-size: 16px;
+    font-weight: 400;
     background-color: var(--color-background);
     color: var(--color-primary);
     margin: 0;
-    padding: 0;
+    padding: 16px;
+    gap: 12px;
+    max-width: 100vw;
+}
+
+body.dark-theme {
+    --color-primary: #3B82F6;       /* buttons, links */
+    --color-secondary: #94A3B8;     /* secondary texts, tags */
+    --color-accent: #0EA5E9;        /* visual details */
+    --color-background: #0F172A;    /* main background */
+    --color-foreground: #F1F5F9;    /* main text color */ 
+    --color-warning: #FACC15;       /* warnings, alerts */
+    --color-success: #4ADE80;       /* success messages */
+    --color-error: #F87171;         /* error messages */
+    --color-border: #1E293B;        /* borders, dividers */
 }
 
 div {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     min-width: 320px;
@@ -30,6 +48,19 @@ div {
 
 
 h1 {
-    font-size: 2.5em;
-    color: var(--color-primary);
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--color-foreground);
+}
+
+h2 {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--color-foreground);
+}
+
+h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--color-foreground);
 }
