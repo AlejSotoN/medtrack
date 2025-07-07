@@ -6,7 +6,7 @@ import {
 
 import Button from './components/ui/Button/Button'
 import Input from './components/ui/Input/Input'
-import Navbar from './layout/Navbar/Navbar'
+import Navbar from './components/ui/Navbar/Navbar'
 
 export default function App() {
 
