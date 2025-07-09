@@ -34,7 +34,7 @@ export default function Navbar({
         <button
           key={index || route}
           onClick={()=> {onTabClick(route);}}
-          className={className}
+          className={styles.navbarButton}
      >
           {label}
         </button>

@@ -1,0 +1,45 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--color-border);
+  color: white;
+  border-radius: 8px;
+}
+
+.table th,
+.table td {
+  padding: 12px;
+  text-align: center;
+}
+
+.blueButton {
+    background-color: #2563eb; /* blue-600 */
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+  }
+  
+  .blueButton:hover {
+    background-color: #1d4ed8; /* blue-700 */
+  }
+  
+  .editPatientButton {
+    background-color: var(--color-warning); 
+    color: black;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+  }
+
+  .editPatientButton:hover {
+    background-color: lightyellow;
+  }

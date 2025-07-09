@@ -3,17 +3,17 @@ import styles from './Button.module.css'
 
 interface ButtonProps {
   onClick: () => void;
-  label: string;
-  className: string;
+  children: React.ReactNode;
+  className?: string;
 }
 
-export default function Button({ onClick, label, className}: ButtonProps) {
+export default function Button({ onClick, children, className}: ButtonProps) {
   return (
     <button
       onClick={onClick}
-      className={className}
+      className={className || styles.button}
       >
-      {label}
+      {children}
     </button>
   );
 };

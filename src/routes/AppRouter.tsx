@@ -4,7 +4,7 @@ import Dashboard from "../features/Dashboard/Dashboard"
 import Patients from "../features/Patients/Patients"
 import Home from "../features/Home/Home"
 import Root from "../layout/Root/Root"
-import Logged from "../layout/Root/Logged"
+import Logged from "../layout/Logged/Logged"
 
 export const AppRouter = createBrowserRouter([
     {

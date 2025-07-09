@@ -1,13 +1,24 @@
-.navbarDiv {
-    min-width: min-content;
+.navbarButton {
     min-height: auto;
     max-width:  auto;
     padding: 1rem;
+    border: none;
     cursor: pointer;
+    color: var(--color-foreground);
+    background-color: transparent;
+    transition: var(--color-primary) 0.3s ease;
+    font-weight: 500;
+}
+
+.navbarButton:hover {
+    background-color: #5555;
 }
 
 .navbarNav {
     display: flex;
-    position: fixed;
-    top: 1rem;
+    justify-content: right;
+    margin: 1rem;
+    border-radius: 10px;
+    z-index:1000;
+    background-color: var(--color-border);
 }

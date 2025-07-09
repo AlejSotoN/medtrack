@@ -1,6 +1,7 @@
 import React from 'react'
 import Navbar, { NavbarTab } from '../../components/ui/Navbar/Navbar'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
+import styles from './Logged.module.css'
 
 export default function Logged() {
     const location = useLocation();
@@ -22,13 +23,13 @@ export default function Logged() {
     ];
     
     return (
-    <>
+    <div className={styles.div}>
         <Navbar
             tabs={loggedNavbarTabs}
             onTabClick={handleNavigation}
             activeRoute={currentRoute}
         />
         <Outlet/>
-    </> 
+    </div> 
     )
 }

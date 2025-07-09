@@ -2,6 +2,8 @@ import { API_URL } from '../../config/localhost_env'
 import Patient from '../../services/patients'
 import React, { useEffect } from 'react'
 import axios from 'axios'
+import styles from './Dashboard.module.css'
+import Table from '../../components/ui/Table/Table'
 
 interface Props {}
 
@@ -25,19 +27,15 @@ export default function Dashboard(props: Props) {
   })
 
   return (
-    <section> 
-      <h1>Patient Dashboard</h1>
+    <section className={styles.section}> 
+      <h1 className={styles.h1}>Patients Dashboard</h1>
       {loading && <p>Loading...</p>}
       {error && <p style={{ color: 'red' }}>{error}</p>}
-        <ul>
-          {patients.map((patient) => (
-            <div key={patient.id}>
-              <h2>{patient.first_name}</h2>
-              <p>Age: {patient.age}</p>
-              <p>Condition: {patient.condition}</p>
-            </div>
-          ))}
-        </ul>
+      <Table
+      data={patients}
+      onView={(patients)=> console.log(patients)}
+      onEdit={(patients)=> console.log(patients)}
+  />
 
     </section>
   )

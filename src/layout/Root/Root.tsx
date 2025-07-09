@@ -1,6 +1,7 @@
 import React from 'react'
 import Navbar, { NavbarTab } from '../../components/ui/Navbar/Navbar'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
+import styles from './Root.module.css'
 
 export default function Root() {
     const location = useLocation();

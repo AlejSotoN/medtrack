@@ -1,0 +1,40 @@
+.section {
+    height: max-content;
+    width:fit-content;
+    position: absolute;
+    top: 5rem;
+    left: 4rem;
+
+}
+
+.ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: 0;
+    padding: 0;
+}
+
+.div {
+    min-width: none;
+    min-height: 5vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0;
+    margin: 0;
+    
+}
+
+.h1 {
+  width: 100%;
+}
+
+.h2 {
+    background-color: var(--color-border);
+    padding: 1rem;
+    width: fit-content;
+    margin: 0;
+    border-radius: 10%;
+}

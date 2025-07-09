@@ -1,0 +1,6 @@
+.div {
+    display: flex;
+    justify-content: flex-start;
+    min-width: auto;
+    height: fit-content;
+}
