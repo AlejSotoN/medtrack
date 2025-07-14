@@ -1,0 +1,31 @@
+.card {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  background-color: var(--color-border);
+  padding: 1rem;
+  margin: 0.5rem 1rem;
+  border-radius: 8px;
+  height: fit-content;
+  width: 15vw;
+}
+
+.label {
+
+  background: none;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  font-size: 0.9rem;
+  color: #bbb;
+}
+
+.value {
+  background: none;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+}

@@ -11,9 +11,7 @@
     font-weight: 500;
     font-size: 0.9rem;
     margin: 4px 2px;
-    cursor: pointer;
-    min-height: 40px;
-    
+    cursor: pointer;    
 }
 
 .button:active {

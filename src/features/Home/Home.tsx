@@ -12,9 +12,10 @@ export default function Home() {
         <p>Prueba prueba parrafo 1, 2, 3</p>
         <Button 
         onClick={() => alert('Button clicked!')} 
-        label="Click Me"
         className={buttonStyles.button}
-        />
+        >
+          Click Me
+        </Button>
         <Input 
           type="text" 
           placeholder="Type something..." 

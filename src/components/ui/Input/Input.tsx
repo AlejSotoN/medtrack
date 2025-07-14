@@ -4,7 +4,7 @@ import styles from './Input.module.css'
 interface InputProps {
   type?: string;
   placeholder?: string;
-  value?: string;
+  value?: string | number;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   className?: string;
 }

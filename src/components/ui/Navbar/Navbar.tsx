@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import styles from './Navbar.module.css'
-
+import logo from '../../../assets/medtrack_logo.png'
 export interface NavbarTab {
   label: string,
   route: string,
@@ -19,23 +19,24 @@ export interface NavbarProps {
 
 export default function Navbar({
   tabs,
-  onTabClick, 
+  onTabClick,
   activeRoute,
   className,
   tabStyle,
   activeTabStyle
-}:NavbarProps) {
+}: NavbarProps) {
   const navigate = useNavigate();
 
   return (
     <nav
       className={styles.navbarNav}>
-      {tabs.map(({label, route, icon}, index) =>(
+        <img src={logo} alt="medtrack logo" width="120px" height="60px" />
+      {tabs.map(({ label, route, icon }, index) => (
         <button
           key={index || route}
-          onClick={()=> {onTabClick(route);}}
+          onClick={() => { onTabClick(route); }}
           className={styles.navbarButton}
-     >
+        >
           {label}
         </button>
       ))}
