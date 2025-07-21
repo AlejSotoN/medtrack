@@ -1,18 +1,18 @@
 import React from 'react'
-import { 
-  QueryClientProvider, 
-  QueryClient 
+import {
+  QueryClientProvider,
+  QueryClient
 } from '@tanstack/react-query'
+import { RouterProvider } from 'react-router-dom'
+import { AppRouter } from './routes/AppRouter'
 
-import Button from './components/ui/Button/Button'
-import Input from './components/ui/Input/Input'
-import Navbar from './components/ui/Navbar/Navbar'
+const queryClient = new QueryClient()
 
 export default function App() {
 
   return (
-      <div className="App">
-
-      </div>
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={AppRouter} />
+    </QueryClientProvider>
   )
 }

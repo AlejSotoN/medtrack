@@ -16,7 +16,6 @@ export default function Logged() {
     const loggedNavbarTabs: NavbarTab[] = [
         { label: 'Profile', route: '/profile', icon: '🔧' },
         { label: 'Dashboard', route: '/dashboard', icon: '🏠' },
-        { label: 'Patients', route: '/patients', icon: '📦' },
         { label: 'Entries', route: '/entries', icon: '🔧' },
         { label: 'Logout', route: '/', icon: '🔧' },
       

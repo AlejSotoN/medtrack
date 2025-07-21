@@ -8,32 +8,34 @@ import Input from '../../components/ui/Input/Input'
 import Button from '../../components/ui/Button/Button'
 import StatCard from '../../components/ui/StatCard/StatCard'
 import Modal from '../../components/ui/Modal/Modal'
+import { Navigate, useNavigate } from 'react-router-dom'
 
 interface Props { }
 
 export default function Dashboard(props: Props) {
-  const [isModalOpen, setModalOpen] = React.useState(false);
+  const [isModalOpen, setModalOpen] = React.useState<boolean>(false);
   const [searchPatient, setSearchPatient] = React.useState<string>("")
   const [firstName, setFirstName] = React.useState<string>("");
   const [lastName, setLastName] = React.useState<string>("");
   const [age, setAge] = React.useState<number | undefined>(undefined);
-  const [chiefComplaint, setChiefComplaint] = React.useState<string>("");
-  const [condition, setCondition] = React.useState<string>("");
+  const [gender, setGender] = React.useState<string>("");
+  const [registerDate, setRegisterDate] = React.useState<Date>();
   const [patients, setPatients] = React.useState<Patient[]>([])
   const [loading, setLoading] = React.useState<boolean>(true)
   const [error, setError] = React.useState<string | null>(null)
+
+  const navigate = useNavigate()
 
   const handleSubmit = async () => {
     const newPatient = {
       firstName,
       lastName,
       age,
-      chiefComplaint,
-      condition
+      gender,
     }
     try {
       const response = await axios.post(`${API_URL}/dashboard`, newPatient)
-      console.log('Submission successful', response, newPatient)
+      console.log('Submission successful', newPatient)
     } catch (error) {
     }
     setModalOpen(false)
@@ -62,6 +64,7 @@ export default function Dashboard(props: Props) {
     fetchPatients()
   }, [patients])
 
+
   return (
     <div className={styles.mainContainer}>
       <h1 className={styles.h1}>Patients Dashboard</h1>
@@ -84,8 +87,8 @@ export default function Dashboard(props: Props) {
           </div>
           <Table
             data={filterPatient}
-            onView={(patients) => console.log(patients)}
-            onEdit={(patients) => console.log(patients)}
+            onView={(patients)=> navigate(`/dashboard/${patients.patient_id}`)}
+            onEdit={(patients) => console.log(patients.patient_id)}
           />
           {loading && <p>Loading...</p>}
           {error && <p style={{ color: 'red' }}>{error}</p>}
@@ -136,20 +139,11 @@ export default function Dashboard(props: Props) {
             />
           </div>
           <div className={styles.modalDiv}>
-            <h3>Chief Complaint</h3>
+            <h3>Gender</h3>
             <Input
-              placeholder='i.e: Headache'
-              onChange={(e) => setChiefComplaint(e.target.value)}
-              value={chiefComplaint}
-              className={styles.modalInput}
-            />
-          </div>
-          <div className={styles.modalDiv}>
-            <h3>Condition</h3>
-            <Input
-              placeholder='i.e: Migraine'
-              onChange={(e) => setCondition(e.target.value)}
-              value={condition}
+              placeholder='i.e: Male'
+              onChange={(e) => setGender(e.target.value)}
+              value={gender}
               className={styles.modalInput}
             />
           </div>

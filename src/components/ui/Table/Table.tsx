@@ -9,24 +9,25 @@ interface TableProps {
   onEdit: (patient: Patient) => void;
 }
 
-export default function Table({ data, onView, onEdit }: TableProps) {
+export default function 
+Table({ data, onView, onEdit }: TableProps) {
   return (
     <table className={styles.table}>
       <thead>
         <tr>
           <th>Name</th>
           <th>Age</th>
-          <th>Condition</th>
+          <th>Gender</th>
         </tr>
       </thead>
       <tbody>
         {data.map((patient) => (
-          <tr key={patient.first_name}>
-            <td>{patient.first_name}</td>
+          <tr key={patient.patient_id}>
+            <td>{`${patient.first_name} ${patient.last_name}`}</td>
             <td>{patient.age}</td>
-            <td>{patient.condition}</td>
-            <td>
-              <Button className={styles.blueButton} onClick={() => onView(patient)}>View</Button>
+            <td>{patient.gender}</td>
+            <td className={styles.td}>
+              <Button className={styles.blueButton} onClick={() => onView(patient)}>Entry</Button>
               <Button className={styles.editPatientButton} onClick={() => onEdit(patient)}>Edit</Button>
             </td>
           </tr>

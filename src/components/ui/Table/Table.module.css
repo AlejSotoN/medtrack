@@ -50,3 +50,9 @@
   .editPatientButton:hover {
     background-color: lightyellow;
   }
+
+  .td {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
