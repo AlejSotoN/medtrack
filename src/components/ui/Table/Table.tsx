@@ -26,9 +26,9 @@ Table({ data, onView, onEdit }: TableProps) {
             <td>{`${patient.first_name} ${patient.last_name}`}</td>
             <td>{patient.age}</td>
             <td>{patient.gender}</td>
-            <td className={styles.td}>
-              <Button className={styles.blueButton} onClick={() => onView(patient)}>Entry</Button>
-              <Button className={styles.editPatientButton} onClick={() => onEdit(patient)}>Edit</Button>
+            <td  className={styles.td}>
+              <Button className={styles.blueButton} onClick={() => onView(patient)}>View Entries</Button>
+              <Button className={styles.editPatientButton} onClick={() => onEdit(patient)}>Edit Patient</Button>
             </td>
           </tr>
         ))}

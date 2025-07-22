@@ -1,5 +1,5 @@
 import { API_URL } from '../../config/localhost_env'
-import Patient from '../../services/patients'
+import { Patient, DashboardLoaderData } from 'services/types'
 import React, { useEffect } from 'react'
 import axios from 'axios'
 import styles from './Dashboard.module.css'
@@ -8,11 +8,20 @@ import Input from '../../components/ui/Input/Input'
 import Button from '../../components/ui/Button/Button'
 import StatCard from '../../components/ui/StatCard/StatCard'
 import Modal from '../../components/ui/Modal/Modal'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { LoaderFunction, Navigate, useLoaderData, useNavigate } from 'react-router-dom'
+import { getPatients } from '../../services/data'
 
 interface Props { }
 
+export const loader = (getPatients: ()=> Promise<Patient[]>): LoaderFunction => async () => {
+    const patients = await getPatients();
+    console.log(patients)
+    return { patients } as DashboardLoaderData;
+}
+
 export default function Dashboard(props: Props) {
+  const { patients } = useLoaderData() as DashboardLoaderData;
+
   const [isModalOpen, setModalOpen] = React.useState<boolean>(false);
   const [searchPatient, setSearchPatient] = React.useState<string>("")
   const [firstName, setFirstName] = React.useState<string>("");
@@ -20,7 +29,6 @@ export default function Dashboard(props: Props) {
   const [age, setAge] = React.useState<number | undefined>(undefined);
   const [gender, setGender] = React.useState<string>("");
   const [registerDate, setRegisterDate] = React.useState<Date>();
-  const [patients, setPatients] = React.useState<Patient[]>([])
   const [loading, setLoading] = React.useState<boolean>(true)
   const [error, setError] = React.useState<string | null>(null)
 
@@ -46,24 +54,9 @@ export default function Dashboard(props: Props) {
 
     const lowerCasePatient = searchPatient.toLowerCase();
     return patients.filter(patient => {
-      return patient.first_name.toLowerCase().includes(lowerCasePatient) || patient.last_name.toLowerCase().includes(lowerCasePatient)
+      return patient.first_name.toLowerCase().includes(lowerCasePatient)|| patient.last_name.toLowerCase().includes(lowerCasePatient)
     })
   }, [patients, searchPatient])
-
-  useEffect(() => {
-    const fetchPatients = async () => {
-      try {
-        const response = await axios.get<Patient[]>(`${API_URL}/dashboard`)
-        setPatients(response.data)
-        setLoading(false)
-      } catch (err) {
-        setError('Failed to fetch patients')
-        setLoading(false)
-      }
-    }
-    fetchPatients()
-  }, [patients])
-
 
   return (
     <div className={styles.mainContainer}>
@@ -86,11 +79,11 @@ export default function Dashboard(props: Props) {
             </Button>
           </div>
           <Table
-            data={filterPatient}
-            onView={(patients)=> navigate(`/dashboard/${patients.patient_id}`)}
+            data={filterPatient}            
+            onView={(patients)=> navigate(`/dashboard/patient/${patients.patient_id}`)}
             onEdit={(patients) => console.log(patients.patient_id)}
           />
-          {loading && <p>Loading...</p>}
+          {patients.length === 0 && <p>No patients found.</p>}
           {error && <p style={{ color: 'red' }}>{error}</p>}
         </div>
         <div>

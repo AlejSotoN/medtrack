@@ -1,11 +1,12 @@
 import React from 'react'
 import Navbar, { NavbarTab } from '../../components/ui/Navbar/Navbar'
-import { Outlet, useLocation, useNavigate } from 'react-router-dom'
+import { Outlet, useLocation, useNavigate, useNavigation } from 'react-router-dom'
 import styles from './Logged.module.css'
 
 export default function Logged() {
     const location = useLocation();
     const navigate = useNavigate();
+    const navigation = useNavigation()
 
     const currentRoute = location.pathname;
     
@@ -28,6 +29,9 @@ export default function Logged() {
             onTabClick={handleNavigation}
             activeRoute={currentRoute}
         />
+        {navigation.state === 'loading' ? (
+            <div> Loading...</div>
+        ): null}
         <Outlet/>
     </div> 
     )

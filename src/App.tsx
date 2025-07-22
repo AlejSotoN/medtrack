@@ -6,7 +6,13 @@ import {
 import { RouterProvider } from 'react-router-dom'
 import { AppRouter } from './routes/AppRouter'
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5,
+    },
+  },
+});
 
 export default function App() {
 
