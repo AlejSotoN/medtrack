@@ -25,3 +25,6 @@ dist-ssr
 
 #ignorar archivos de configuración de entorno
 .env
+
+#server
+server/src/
