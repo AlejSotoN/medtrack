@@ -6,9 +6,7 @@ import Home from "../features/Home/Home"
 import Root from "../layout/Root/Root"
 import Logged from "../layout/Logged/Logged"
 import PatientProfile from "../features/PatientProfile/PatientProfile"
-import { API_URL } from "../config/localhost_env"
-import axios from "axios"
-import { getPatients } from "../services/data"
+import { getPatients } from "../services/patient.server"
 import NotFound from "../components/ui/NotFound/NotFound"
 
 export const AppRouter = createBrowserRouter([
@@ -42,6 +40,7 @@ export const AppRouter = createBrowserRouter([
             {
                 path: "dashboard/patient/:patientId",
                 Component: PatientProfile,
+                loader: 
             },
             {
                 path: "/entries",

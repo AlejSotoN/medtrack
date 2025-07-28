@@ -1,5 +1,6 @@
 import { API_URL } from '../../config/localhost_env'
-import { Patient, DashboardLoaderData } from 'services/types'
+import Patient from '../../services/types'
+import DashboardLoaderData from '../../services/types'
 import React, { useEffect } from 'react'
 import axios from 'axios'
 import styles from './Dashboard.module.css'
@@ -8,10 +9,7 @@ import Input from '../../components/ui/Input/Input'
 import Button from '../../components/ui/Button/Button'
 import StatCard from '../../components/ui/StatCard/StatCard'
 import Modal from '../../components/ui/Modal/Modal'
-import { LoaderFunction, Navigate, useLoaderData, useNavigate } from 'react-router-dom'
-import { getPatients } from '../../services/data'
-
-interface Props { }
+import { LoaderFunction, useLoaderData, useNavigate } from 'react-router-dom'
 
 export const loader = (getPatients: ()=> Promise<Patient[]>): LoaderFunction => async () => {
     const patients = await getPatients();
@@ -19,7 +17,7 @@ export const loader = (getPatients: ()=> Promise<Patient[]>): LoaderFunction => 
     return { patients } as DashboardLoaderData;
 }
 
-export default function Dashboard(props: Props) {
+export default function Dashboard() {
   const { patients } = useLoaderData() as DashboardLoaderData;
 
   const [isModalOpen, setModalOpen] = React.useState<boolean>(false);

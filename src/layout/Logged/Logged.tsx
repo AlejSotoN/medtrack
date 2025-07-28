@@ -29,9 +29,6 @@ export default function Logged() {
             onTabClick={handleNavigation}
             activeRoute={currentRoute}
         />
-        {navigation.state === 'loading' ? (
-            <div> Loading...</div>
-        ): null}
         <Outlet/>
     </div> 
     )
