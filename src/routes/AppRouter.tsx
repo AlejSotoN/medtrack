@@ -1,12 +1,12 @@
 import { createBrowserRouter } from "react-router-dom"
 import Auth from "../features/Auth/Auth"
 import Dashboard, { loader as dashboardLoader } from "../features/Dashboard/Dashboard"
+import PatientProfile, {loader as patientProfileLoader } from "../features/PatientProfile/PatientProfile"
 import Entries from "../features/Entries/Entries"
 import Home from "../features/Home/Home"
 import Root from "../layout/Root/Root"
 import Logged from "../layout/Logged/Logged"
-import PatientProfile from "../features/PatientProfile/PatientProfile"
-import { getPatients } from "../services/patient.server"
+import { getPatient, getPatients } from "../services/patient.server"
 import NotFound from "../components/ui/NotFound/NotFound"
 
 export const AppRouter = createBrowserRouter([
@@ -40,7 +40,7 @@ export const AppRouter = createBrowserRouter([
             {
                 path: "dashboard/patient/:patientId",
                 Component: PatientProfile,
-                loader: 
+                loader: patientProfileLoader(getPatient)
             },
             {
                 path: "/entries",

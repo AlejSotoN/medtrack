@@ -30,11 +30,11 @@ export default interface DashboardLoaderData {
 }
 
 export default interface PatientProfileLoaderData{
-    patient: Patient;
+    patient: Patient | undefined;
 }
 
 export default interface EditPatientLoaderData {
-    patient: Patient;
+    patient: Patient | undefined;
   }
   
   export default interface EditPatientActionData {
