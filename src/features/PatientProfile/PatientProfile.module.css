@@ -1,0 +1,26 @@
+.medicalEntries {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: fit-content;
+    border-radius: 8px;
+    padding: 0.5rem;
+}
+
+.entryCard {
+    width: 100%;
+    height: fit-content;
+    background-color: var(--color-border);
+    border-radius: 8px;
+    padding-left: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+
+.title {
+    align-self: start;
+}

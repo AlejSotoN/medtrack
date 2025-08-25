@@ -1,5 +1,5 @@
 import React from 'react'
-import Entry from '../../services/types'
+import { Entry }from '../../services/types'
 import styles from './Entries.module.css'
 import EntryCard from '../../components/ui/EntryCard/EntryCard'
 

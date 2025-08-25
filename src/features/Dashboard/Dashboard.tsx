@@ -1,6 +1,5 @@
 import { API_URL } from '../../config/localhost_env'
-import Patient from '../../services/types'
-import DashboardLoaderData from '../../services/types'
+import { Patient, DashboardLoaderData} from '../../services/types'
 import React, { useEffect } from 'react'
 import axios from 'axios'
 import styles from './Dashboard.module.css'
@@ -26,8 +25,6 @@ export default function Dashboard() {
   const [lastName, setLastName] = React.useState<string>("");
   const [age, setAge] = React.useState<number | undefined>(undefined);
   const [gender, setGender] = React.useState<string>("");
-  const [registerDate, setRegisterDate] = React.useState<Date>();
-  const [loading, setLoading] = React.useState<boolean>(true)
   const [error, setError] = React.useState<string | null>(null)
 
   const navigate = useNavigate()
@@ -42,8 +39,11 @@ export default function Dashboard() {
     try {
       const response = await axios.post(`${API_URL}/dashboard`, newPatient)
       console.log('Submission successful', newPatient)
-    } catch (error) {
+    } catch (error: any) {
+      console.error('Error submitting new patient:', error);
+      setError(error.response?.data?.message || 'An error occurred while adding the patient.');
     }
+
     setModalOpen(false)
   }
 
@@ -72,6 +72,7 @@ export default function Dashboard() {
             />
             <Button
               onClick={() => setModalOpen(true)}
+              className={styles.addPatientButton}
             >
               Add Patient
             </Button>
@@ -88,10 +89,6 @@ export default function Dashboard() {
           <StatCard
             label='Active Patients'
             value={patients.length}
-          />
-          <StatCard
-            label='Recent entries'
-            value={456}
           />
         </div>
 
