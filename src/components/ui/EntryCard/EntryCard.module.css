@@ -1,7 +1,74 @@
-.card {
+.entryCard {
+    max-width: 70vw;
+    width: 70vw;
+    height: fit-content;
+    background-color: var(--color-border);
+    border-radius: 8px 8px 0 0;
+    padding: 1rem;
+    margin: 0.5rem 0 0 0;
     display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.entryCardDetails {
+    max-width: 70vw;
+    width: 70vw;
+    height: fit-content;
+    background-color: var(--color-border);
+    border-radius: 0 0 8px 8px;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.bottomDiv{
+    display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin: 0;
-    padding: 2rem;
 }
+
+.toggle {
+    cursor: pointer;
+}
+
+.deleteEntryButton {
+    background-color: var(--color-error); /* blue-600 */
+    color: white;
+    padding: 0.5rem 1rem;
+    margin: 1rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+  }
+  
+  .deleteEntryButton:hover {
+    background-color: red; /* blue-700 */
+  }
+  
+  .editEntryButton {
+    background-color: var(--color-warning); 
+    color: black;
+    padding: 0.5rem 1rem;
+    margin: 1rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+  }
+
+  .editEntryButton:hover {
+    background-color: goldenrod;
+  }
+
+  p {
+    margin: 0.2rem;
+  }

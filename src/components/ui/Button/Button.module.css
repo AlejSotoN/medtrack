@@ -14,6 +14,10 @@
     cursor: pointer;    
 }
 
+.button:hover{
+    background-color: #1d4ed8;
+}
+
 .button:active {
     transform: scale(0.9); /* Even darker green on click */
 }

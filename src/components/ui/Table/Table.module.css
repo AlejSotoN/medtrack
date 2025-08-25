@@ -10,10 +10,9 @@
 .table th,
 .table td {
 
-  padding: 0.5rem 1rem;
+  padding: 1rem 0.5rem 0.5rem 1rem;
   text-align: start;
-  margin: 1rem 0;
-  padding: 0.5rem auto;
+  margin: 0.5rem;
   
 }
 

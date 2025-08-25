@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Table.module.css';
 import Button from '../Button/Button';
-import Patient from 'services/patients';
+import { Patient } from "../../../services/types";
 
 interface TableProps {
   data: Patient[];
@@ -27,7 +27,7 @@ Table({ data, onView, onEdit }: TableProps) {
             <td>{patient.age}</td>
             <td>{patient.gender}</td>
             <td  className={styles.td}>
-              <Button className={styles.blueButton} onClick={() => onView(patient)}>View Entries</Button>
+              <Button className={styles.blueButton} onClick={() => onView(patient)}>View Patient</Button>
               <Button className={styles.editPatientButton} onClick={() => onEdit(patient)}>Edit Patient</Button>
             </td>
           </tr>
