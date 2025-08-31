@@ -1,10 +1,11 @@
 import React from 'react'
-import { Entry }from '../../services/types'
+import { EntriesLoaderData, Entry }from '../../services/types'
 import styles from './Entries.module.css'
 import EntryCard from '../../components/ui/EntryCard/EntryCard'
+import { useLoaderData } from 'react-router-dom'
 
 export default function Entries() {
-  const [entries, setEntries] = React.useState<Entry[]>([])
+  const { entries } = useLoaderData() as EntriesLoaderData;
 
   return (
     <div className={styles.mainContainer}>

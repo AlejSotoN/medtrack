@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './Modal.module.css'
+import styles from './BaseModal.module.css'
 
 interface ModalProps {
     isOpen: boolean;
@@ -8,7 +8,7 @@ interface ModalProps {
     children: React.ReactNode;
 }
 
-export default function Modal({ isOpen, onClose, title, children }: ModalProps) {
+export default function BaseModal({ isOpen, onClose, title, children }: ModalProps) {
     if (!isOpen) return null;
     return (
         <div className={styles.overlay}>

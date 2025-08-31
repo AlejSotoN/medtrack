@@ -25,8 +25,6 @@ export default function EntryCard({ data }: EntryCardProps) {
     setExpandedIndex(expandedIndex === index ? null : index);
   };
 
-  console.log("esta es la data:", data.length)
-
   return (
     <div className={styles.entryCardContainer}>
       {data.length > 0 ? (
@@ -50,7 +48,7 @@ export default function EntryCard({ data }: EntryCardProps) {
             {entry.notes && <p><strong>Notes:</strong> {entry.notes}</p>}
             {entry.treatment && <p><strong>Treatment:</strong> {entry.treatment}</p>}
             <div className={styles.bottomDiv}>
-              <Button className={styles.editEntryButton} onClick={() => onEdit()}>Edit Entry</Button>
+              <Button className={styles.editEntryButton} onClick={() => console.log(expandedIndex)}>Edit Entry</Button>
               <Button className={styles.deleteEntryButton} onClick={() => onView()}>Delete Entry</Button>
             </div>
 

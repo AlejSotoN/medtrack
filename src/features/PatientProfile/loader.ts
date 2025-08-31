@@ -1,6 +1,5 @@
-
 import { LoaderFunction, LoaderFunctionArgs } from 'react-router-dom';
-import {Patient, Entry, PatientProfileLoaderData } from '../../services/types'
+import { Patient, Entry, PatientProfileLoaderData } from '../../services/types'
 
 export const patientProfileLoader = (getPatient: (id: string) => Promise<Patient | undefined>, getEntries: (id: string) => Promise<Entry[]>): LoaderFunction => async ({ params }: LoaderFunctionArgs): Promise<PatientProfileLoaderData> => {
     const { patientId } = params;
