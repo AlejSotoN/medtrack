@@ -1,4 +1,4 @@
-export default interface Patient {
+export interface Patient {
     patient_id: string;
     first_name: string;
     last_name: string;
@@ -11,7 +11,7 @@ export default interface Patient {
     registerDate: Date;
 }
 
-export default interface Entry {
+export interface Entry {
     entry_id: string;
     patient_id: string;
     entry_date: string;
@@ -25,19 +25,24 @@ export default interface Entry {
     last_modified?: string;
 }
 
-export default interface DashboardLoaderData {
+export interface DashboardLoaderData {
     patients: Patient[];
 }
 
-export default interface PatientProfileLoaderData{
+export interface PatientProfileLoaderData{
     patient: Patient | undefined;
+    entries: Entry[];
 }
 
-export default interface EditPatientLoaderData {
+export interface EntriesLoaderData {
+    entries: Entry[];
+}
+
+export interface EditPatientLoaderData {
     patient: Patient | undefined;
   }
   
-  export default interface EditPatientActionData {
+export interface EditPatientActionData {
     success: boolean;
     message: string;
   }
