@@ -16,7 +16,7 @@ export const loader = (getPatients: () => Promise<Patient[]>): LoaderFunction =>
 
 export default function Dashboard() {
   const { patients } = useLoaderData() as DashboardLoaderData;
-  const [isModalOpen, setModalOpen] = React.useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false);
   const [searchPatient, setSearchPatient] = React.useState<string>("")
   const [error, setError] = React.useState<string | null>(null)
 
@@ -47,7 +47,7 @@ export default function Dashboard() {
               className={styles.input}
             />
             <Button
-              onClick={() => setModalOpen(true)}
+              onClick={() => setIsModalOpen(true)}
               className={styles.addPatientButton}
             >
               Add Patient
@@ -71,10 +71,12 @@ export default function Dashboard() {
       </section>
       <BaseModal
         isOpen={isModalOpen}
-        onClose={() => setModalOpen(false)}
+        onClose={() => setIsModalOpen(false)}
         title='Add New Patient'
       >
-        <PatientForm />
+        <PatientForm 
+          setIsModalOpen={setIsModalOpen} 
+        />
       </BaseModal>
 
     </div>

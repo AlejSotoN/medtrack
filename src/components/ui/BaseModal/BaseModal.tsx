@@ -15,7 +15,7 @@ export default function BaseModal({ isOpen, onClose, title, children }: ModalPro
           <div className={styles.modal}>
             <div className={styles.header}>
               {title && <h2>{title}</h2>}
-              <button onClick={onClose} className={styles.closeBtn}>×</button>
+              <button onClick={onClose} className={styles.closeBtn}>x</button>
             </div>
             <div className={styles.content}>{children}</div>
           </div>
