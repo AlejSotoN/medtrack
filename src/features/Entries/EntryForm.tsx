@@ -4,8 +4,12 @@ import Input from "../../components/ui/Input/Input"
 import Button from "../../components/ui/Button/Button"
 import { postEntry } from "../../services/entries.server"
 import { useParams } from "react-router-dom"
+import { Entry } from "services/types"
+interface EntryFormProps {
+    setIsModalOpen: (isOpen: boolean) => void;
+}
 
-export default function EntryForm({ setIsModalOpen }: {setIsModalOpen: (isOpen: boolean) => void}) {
+export default function EntryForm({ setIsModalOpen }: EntryFormProps) {
     const { patientId } = useParams<{ patientId: string }>();
     const [mainSymptoms, setMainSymptoms] = React.useState<string>("");
     const [conditionDescription, setConditionDescription] = React.useState<string>("");
@@ -37,6 +41,7 @@ export default function EntryForm({ setIsModalOpen }: {setIsModalOpen: (isOpen: 
     }
 
     return (
+        <div>
             <div className={styles.modalContainer}>
                 <div className={styles.modalDiv}>
                     <h3>Main symptoms</h3>
@@ -92,12 +97,15 @@ export default function EntryForm({ setIsModalOpen }: {setIsModalOpen: (isOpen: 
                         className={styles.modalInput}
                     />
                 </div>
+
+            </div>
             <Button
                 onClick={handleSubmit}
             >
                 Submit
             </Button>
-            </div>
+        </div>
+
     )
 }
 
