@@ -3,6 +3,7 @@ import styles from './Dashboard.module.css'
 import Input from "../../components/ui/Input/Input"
 import Button from "../../components/ui/Button/Button"
 import { postPatient } from "../../services/patient.server"
+import { useNavigate } from "react-router-dom"
 
 export default function PatientForm({ setIsModalOpen }: { setIsModalOpen: (isOpen: boolean) => void }) {
     const [firstName, setFirstName] = React.useState<string>("");
@@ -10,6 +11,7 @@ export default function PatientForm({ setIsModalOpen }: { setIsModalOpen: (isOpe
     const [age, setAge] = React.useState<number | undefined>(undefined);
     const [gender, setGender] = React.useState<string>("");
     const [error, setError] = React.useState<string | null>(null)
+    const navigate = useNavigate()
 
     const handleSubmit = async () => {
         const newPatient = {
@@ -29,7 +31,7 @@ export default function PatientForm({ setIsModalOpen }: { setIsModalOpen: (isOpe
     }
 
     return (
-        
+        <div className={styles.modalContent}>
         <div className={styles.modalContainer}>
             <div className={styles.modalDiv}>
                 <h3>First Name</h3>
@@ -67,12 +69,14 @@ export default function PatientForm({ setIsModalOpen }: { setIsModalOpen: (isOpe
                     className={styles.modalInput}
                 />
             </div>
-            <Button
+
+        </div >
+        <Button
             onClick={handleSubmit}
             >
             Submit
         </Button>
-        </div >
+        </div>
     )
 }
 

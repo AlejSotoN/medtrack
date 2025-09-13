@@ -11,6 +11,7 @@ import { getPatient, getPatients } from "../services/patient.server"
 import NotFound from "../components/ui/NotFound/NotFound"
 import { entriesLoader } from "../features/Entries/loader"
 import { getEntries, getEntriesByPatientId } from "../services/entries.server"
+import EditEntry from "../features/Entries/EditEntry"
 
 export const AppRouter = createBrowserRouter([
     {
@@ -21,10 +22,6 @@ export const AppRouter = createBrowserRouter([
             {
                 index: true,
                 Component: Home,
-            },
-            {
-                path: "about",
-                // Component: About,
             },
         ]
     },
@@ -43,13 +40,18 @@ export const AppRouter = createBrowserRouter([
             {
                 path: "dashboard/patient/:patientId",
                 Component: PatientProfile,
-                loader: patientProfileLoader(getPatient, getEntriesByPatientId)
+                loader: patientProfileLoader(getPatient, getEntriesByPatientId),
+            },
+            {
+                path: "/dashboard/patient/:patientId/edit-entry/:entryId",
+                Component: EditEntry,
+                loader: entriesLoader(getEntries)
             },
             {
                 path: "/entries",
                 Component: Entries,
                 loader: entriesLoader(getEntries)
-            }
+            },
         ]
     },
 

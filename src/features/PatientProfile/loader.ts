@@ -11,6 +11,5 @@ export const patientProfileLoader = (getPatient: (id: string) => Promise<Patient
     const patient = await getPatient(patientId);
     const entries = await getEntries(patientId);
   
-    console.log("Patient loaded in loader", patient)
     return { patient, entries };
   }

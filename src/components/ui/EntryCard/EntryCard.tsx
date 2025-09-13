@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 import { Entry } from '../../../services/types'
 import styles from './EntryCard.module.css'
 import Button from '../Button/Button';
+import BaseModal from '../BaseModal/BaseModal';
+import EntryForm from '../../../features/Entries/EntryForm';
+import { useNavigate } from 'react-router-dom';
 
 interface EntryCardProps {
   data: Entry[];
@@ -18,9 +21,11 @@ function formatDateTime(isoDate: string) {
   });
 }
 
+
 export default function EntryCard({ data }: EntryCardProps) {
   const [expandedIndex, setExpandedIndex] = useState<string | null>(null);
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
   const toggleExpand = (index: string) => {
     setExpandedIndex(expandedIndex === index ? null : index);
   };
@@ -48,13 +53,19 @@ export default function EntryCard({ data }: EntryCardProps) {
             {entry.notes && <p><strong>Notes:</strong> {entry.notes}</p>}
             {entry.treatment && <p><strong>Treatment:</strong> {entry.treatment}</p>}
             <div className={styles.bottomDiv}>
-              <Button className={styles.editEntryButton} onClick={() => console.log(expandedIndex)}>Edit Entry</Button>
-              <Button className={styles.deleteEntryButton} onClick={() => onView()}>Delete Entry</Button>
+              <Button className={styles.editEntryButton} onClick={()=> navigate(`/dashboard/patient/${entry.patient_id}/edit-entry/${entry.entry_id}`)}>Edit</Button>
+              <Button className={styles.deleteEntryButton} onClick={() => console.log("delete")}>Delete</Button>
             </div>
-
-
           </div>
         )}
+      <BaseModal 
+      isOpen={isModalOpen} 
+      onClose={() => setIsModalOpen(false)} 
+      title="Edit Entry">
+        <EntryForm
+          setIsModalOpen={setIsModalOpen}
+        />
+      </BaseModal>
       </div>
       ))
       ) : (
