@@ -2,15 +2,16 @@ import React from 'react';
 import styles from './Table.module.css';
 import Button from '../Button/Button';
 import { Patient } from "../../../services/types";
-
+import { useRevalidator } from 'react-router-dom';
 interface TableProps {
   data: Patient[];
   onView: (patient: Patient) => void;
   onEdit: (patient: Patient) => void;
 }
 
-export default function 
-Table({ data, onView, onEdit }: TableProps) {
+export default function Table({ data, onView, onEdit }: TableProps) {
+  
+
   return (
     <table className={styles.table}>
       <thead>
