@@ -14,7 +14,6 @@ export default function Root() {
     }
 
     const homeNavbarTabs: NavbarTab[] = [
-        { label: 'About', route: '/about', icon: '🔧' },
         { label: 'Login', route: '/auth', icon: '🏠' },      
     ];
     
