@@ -20,3 +20,7 @@ export async function postPatient(newPatient: Partial<Patient>): Promise<Patient
     const result: Patient = response.data;
     return result;
 }
+
+export async function deletePatient(id: string): Promise<void> {
+    await axios.delete(`${API_URL}/dashboard/${id}`);
+}

@@ -1,18 +1,18 @@
 export interface Patient {
-    patient_id: string;
+    patient_id: number;
     first_name: string;
     last_name: string;
     gender: string;
     age: number;
     address: string;
-    dateOfBirth: Date;
-    phoneNum?: string;
+    date_of_birth: string;
+    phone_num?: string;
     primaryDoctor?: string;
-    registerDate: Date;
+    register_date?: string;
 }
 
 export interface Entry {
-    entry_id: string;
+    entry_id: number;
     patient_id: string;
     entry_date: string;
     main_symptoms: string;
@@ -32,6 +32,10 @@ export interface DashboardLoaderData {
 export interface PatientProfileLoaderData{
     patient: Patient | undefined;
     entries: Entry[];
+}
+
+export interface PatientLoaderData{
+    patient: Patient | undefined;
 }
 
 export interface EntriesLoaderData {
