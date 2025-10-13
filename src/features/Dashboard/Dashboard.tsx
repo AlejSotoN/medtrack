@@ -8,6 +8,7 @@ import StatCard from '../../components/ui/StatCard/StatCard'
 import BaseModal from '../../components/ui/BaseModal/BaseModal'
 import { LoaderFunction, useLoaderData, useNavigate } from 'react-router-dom'
 import PatientForm from './PatientForm'
+import { useRevalidator } from 'react-router-dom'
 
 export const loader = (getPatients: () => Promise<Patient[]>): LoaderFunction => async () => {
   const patients = await getPatients();
@@ -19,7 +20,7 @@ export default function Dashboard() {
   const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false);
   const [searchPatient, setSearchPatient] = React.useState<string>("")
   const [error, setError] = React.useState<string | null>(null)
-
+  const revalidator = useRevalidator()
   const navigate = useNavigate()
 
 
@@ -56,7 +57,7 @@ export default function Dashboard() {
           <Table
             data={filterPatient}
             onView={(patients) => navigate(`/dashboard/patient/${patients.patient_id}`)}
-            onEdit={(patients) => console.log(patients.patient_id)}
+            onEdit={(patients) => navigate(`/dashboard/patient/edit/${patients.patient_id}`)}
           />
           {patients.length === 0 && <p>No patients found.</p>}
           {error && <p style={{ color: 'red' }}>{error}</p>}
@@ -76,6 +77,7 @@ export default function Dashboard() {
       >
         <PatientForm 
           setIsModalOpen={setIsModalOpen} 
+          onSuccess={() => revalidator.revalidate()}
         />
       </BaseModal>
 
