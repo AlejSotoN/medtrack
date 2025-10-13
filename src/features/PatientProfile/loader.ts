@@ -1,9 +1,9 @@
 import { LoaderFunction, LoaderFunctionArgs } from 'react-router-dom';
-import { Patient, Entry, PatientProfileLoaderData } from '../../services/types'
+import { Patient, Entry, PatientLoaderData, PatientProfileLoaderData } from '../../services/types'
 
 export const patientProfileLoader = (getPatient: (id: string) => Promise<Patient | undefined>, getEntries: (id: string) => Promise<Entry[]>): LoaderFunction => async ({ params }: LoaderFunctionArgs): Promise<PatientProfileLoaderData> => {
     const { patientId } = params;
-  
+
     if (!patientId) {
       throw new Response("Patient ID missing", {status: 400});
     }
@@ -13,3 +13,15 @@ export const patientProfileLoader = (getPatient: (id: string) => Promise<Patient
   
     return { patient, entries };
   }
+
+  export const patientLoader = (getPatient: (id: string) => Promise<Patient | undefined>): LoaderFunction => async ({ params }: LoaderFunctionArgs): Promise<PatientLoaderData> => {
+    const { patientId } = params;
+
+    if (!patientId) {
+      throw new Response("Patient ID missing", {status: 400});
+    }
+  
+    const patient = await getPatient(patientId);
+  
+    return { patient};
+  }  

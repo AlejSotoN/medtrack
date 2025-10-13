@@ -1,3 +1,11 @@
+.mainContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+}
+
 .formContainer {
     display: flex;
     flex-wrap: wrap;
@@ -9,6 +17,7 @@
         border-radius: 8px;
         padding: 1rem;
         box-sizing: border-box;
+        padding: 0;
 
     }
 
@@ -22,3 +31,24 @@
         padding: 0.4rem;
         margin: 0.5rem;
     }
+
+.backButton {
+    display: inline-block;
+    align-self: flex-start;
+    background-color: var(--color-primary);
+    color: var(--color-foreground);
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    margin: 0;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+.backButton:hover {
+    background-color: var(--color-secondary);
+}
+.backButton:active {
+    transform: scale(0.95);
+}   
+

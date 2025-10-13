@@ -19,3 +19,7 @@ export async function postEntry(newEntry: Partial<Entry>): Promise<Entry> {
     const result: Entry = response.data;
     return result;
 }
+
+export async function deleteEntry(entryId: string): Promise<void> {
+    await axios.delete(`${API_URL}/entries/patientId/${entryId}`);
+}
