@@ -6,53 +6,53 @@ import { useNavigate, useParams } from 'react-router-dom'
 
 export default function editPatient() {
     const navigate = useNavigate()
-    const { patientId } = useParams<{patientId: string}>();
+    const { patientId } = useParams<{ patientId: string }>();
     const [dateOfBirth, setDateOfBirth] = React.useState('');
     const [gender, setGender] = React.useState('');
     const [address, setAddress] = React.useState('');
     const [phone, setPhone] = React.useState('');
 
-    console.log("patient ID",patientId)
+    console.log("patient ID", patientId)
 
     const handleSubmit = async () => {
         try {
-          const updatedData = {
-            dateOfBirth,
-            gender,
-            address,
-            phoneNum: phone,
-          };
-    
-          const response = await fetch(`http://localhost:3000/dashboard/${patientId}`, {
-            method: "PATCH",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(updatedData),
-          });
-          
-          if (!response.ok) {
-            throw new Error(`Failed to update patient: ${response.statusText}`);
-        }
-    
-          const updatedPatient = await response.json();
-          console.log("✅ Patient updated:", updatedPatient);
-    
-          navigate(-1); // Go back after successful update
+            const updatedData = {
+                dateOfBirth,
+                gender,
+                address,
+                phoneNum: phone,
+            };
+
+            const response = await fetch(`http://localhost:3000/dashboard/${patientId}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(updatedData),
+            });
+
+            if (!response.ok) {
+                throw new Error(`Failed to update patient: ${response.statusText}`);
+            }
+
+            const updatedPatient = await response.json();
+            console.log("✅ Patient updated:", updatedPatient);
+
+            navigate(-1); // Go back after successful update
         } catch (error) {
-          console.error("❌ Error updating patient:", error);
-          alert("Error updating patient. Please try again.");
+            console.error("❌ Error updating patient:", error);
+            alert("Error updating patient. Please try again.");
         }
-      };
+    };
 
     return (
         <div className={styles.mainContainer}>
-                <Button
-                    onClick={() => navigate(-1)}
-                    className={styles.backButton}
-                >
-                    Back
-                </Button>
+            <Button
+                onClick={() => navigate(-1)}
+                className={styles.backButton}
+            >
+                Back
+            </Button>
             <div className={styles.formContainer}>
                 <div className={styles.modalDiv}>
                     <h3>Date of Birth</h3>
@@ -92,11 +92,11 @@ export default function editPatient() {
                     />
                 </div>
             </div>
-                <Button
+            <Button
                 onClick={handleSubmit}
-                >
-                    Submit
-                </Button>
+            >
+                Submit
+            </Button>
         </div>
     )
 }

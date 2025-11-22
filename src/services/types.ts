@@ -1,5 +1,5 @@
 export interface Patient {
-    patient_id: number;
+    patient_id: string;
     first_name: string;
     last_name: string;
     gender: string;
@@ -13,7 +13,7 @@ export interface Patient {
 
 export interface Entry {
     entry_id: number;
-    patient_id: string;
+    patient_id: number;
     entry_date: string;
     main_symptoms: string;
     condition_description: string;
@@ -25,6 +25,16 @@ export interface Entry {
     last_modified?: string;
 }
 
+export type EntryUpdatePayload = {
+    entry_id: number;
+    patient_id: number;
+    main_symptoms: string;
+    condition_description: string;
+    labs_asked: string;
+    diagnosis: string;
+    treatment: string;
+    notes: string;
+  };  
 export interface DashboardLoaderData {
     patients: Patient[];
 }
