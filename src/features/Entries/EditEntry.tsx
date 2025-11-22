@@ -4,17 +4,20 @@ import Input from '../../components/ui/Input/Input'
 import Button from '../../components/ui/Button/Button'
 import { useLoaderData, useNavigate, useParams } from 'react-router-dom'
 import { Entry, PatientProfileLoaderData } from 'services/types'
+import { updateEntry } from '../../services/entries.server'
 
 interface EntryFormProps {
     initialData?: Entry;
     onSuccess?: () => void;
-  }
+}
 
-export default function EditEntry({initialData, onSuccess}: EntryFormProps) {;
+export default function EditEntry({ initialData, onSuccess }: EntryFormProps) {
+    ;
     const navigate = useNavigate()
-    const entryId = useParams<{entryId: string}>();
+    const params = useParams<{ entryId: string, patientId: string }>();
     const { entries } = useLoaderData() as PatientProfileLoaderData;
-    const entry = entries.find(entry => entry.entry_id === Number(entryId.entryId)) 
+
+    const entry = entries.find(e => (e.entry_id).toString() === (params.entryId));
 
     const [mainSymptoms, setMainSymptoms] = React.useState(entry?.main_symptoms || '');
     const [conditionDescription, setConditionDescription] = React.useState(entry?.condition_description || '');
@@ -22,47 +25,38 @@ export default function EditEntry({initialData, onSuccess}: EntryFormProps) {;
     const [diagnosis, setDiagnosis] = React.useState(entry?.diagnosis || '');
     const [treatment, setTreatment] = React.useState(entry?.treatment || '');
     const [notes, setNotes] = React.useState(entry?.notes || '');
-    
-  
+    const [error, setError] = React.useState<string | null>(null);
+
     const handleSubmit = async () => {
         try {
-          if (initialData) {
             await updateEntry({
-              ...initialData,
-              main_symptoms: mainSymptoms,
-              condition_description: conditionDescription,
-              labs_asked: labsAsked,
-              diagnosis,
-              treatment,
-              notes,
+                entry_id: Number(params.entryId),
+                patient_id: Number(params.patientId),
+                main_symptoms: mainSymptoms,
+                condition_description: conditionDescription,
+                labs_asked: labsAsked,
+                diagnosis,
+                treatment,
+                notes,
             });
-          } else {
-            await postEntries({
-              patient_id: initialData?.patient_id ?? 0, // or pass from props
-              main_symptoms: mainSymptoms,
-              condition_description: conditionDescription,
-              labs_asked: labsAsked,
-              diagnosis,
-              treatment,
-              notes,
-            });
-          }
-    
-          onSuccess?.();
+
+            onSuccess?.();
+            console.log('Entry saved successfully');
+            navigate(-1);
         } catch (err: any) {
-          setError('Error saving entry.');
-          console.error(err);
+            setError('Error saving entry.');
+            console.error(err);
         }
-      };
+    };
 
     return (
         <div className={styles.mainContainer}>
-                <Button
-                    onClick={() => navigate(-1)}
-                    className={styles.backButton}
-                >
-                    Back
-                </Button>
+            <Button
+                onClick={() => navigate(-1)}
+                className={styles.backButton}
+            >
+                Back
+            </Button>
             <div className={styles.formContainer}>
                 <div className={styles.modalDiv}>
                     <h3>Main symptoms</h3>
@@ -119,11 +113,11 @@ export default function EditEntry({initialData, onSuccess}: EntryFormProps) {;
                     />
                 </div>
             </div>
-                <Button
-                onClick={()=> console.log("button clicked")}
-                >
-                    Submit
-                </Button>
+            <Button
+                onClick={() => handleSubmit()}
+            >
+                Submit
+            </Button>
         </div>
     )
 }
