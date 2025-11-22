@@ -18,6 +18,14 @@
     border-radius: 0;
     min-width: 140px;
     min-height: 200px;
+    margin: 0;
+}
+
+.leftSide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
 }
 
 .medicalEntries {
@@ -53,7 +61,7 @@
     align-items: flex-start;
     color: var(--color-secondary);
     margin: 0.5rem;
-    padding-left: 3rem;
+    padding-left: 2rem;
     width: 100%;
 }
 
