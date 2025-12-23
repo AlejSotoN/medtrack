@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom"
 import Auth from "../features/Auth/Auth"
 import Dashboard, { loader as dashboardLoader } from "../features/Dashboard/Dashboard"
 import PatientProfile from "../features/PatientProfile/PatientProfile"
-import { patientLoader, patientProfileLoader} from "../features/PatientProfile/loader"
+import { patientLoader, patientProfileLoader } from "../features/PatientProfile/loader"
 import Entries from "../features/Entries/Entries"
 import Home from "../features/Home/Home"
 import Root from "../layout/Root/Root"
@@ -27,7 +27,7 @@ export const AppRouter = createBrowserRouter([
         ]
     },
     {
-        path: "auth",
+        path: "login",
         Component: Auth,
     },
     {
