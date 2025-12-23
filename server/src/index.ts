@@ -3,7 +3,6 @@ import patientsRouter from './patients/patients.routes';
 import entriesRouter from './entries/entries.routes'
 import cors from 'cors';
 import authRoutes from "./auth/auth.routes";
-
 const app = express();
 const port = 3000;
 
