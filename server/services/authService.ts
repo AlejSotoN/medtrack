@@ -9,6 +9,12 @@ type LoginResult = {
     expiresIn: string;
 }
 
+const JWT_SECRET = process.env.JWT_SECRET;
+
+if (!JWT_SECRET) {
+  throw new Error("JWT_SECRET is not defined");
+}
+
 export async function verifyAdminCredentials(username: string, password: string): Promise<boolean> {
     const adminUsername = process.env.ADMIN_USERNAME;
     const adminPassword = process.env.ADMIN_PASSWORD;
@@ -19,18 +25,12 @@ export async function verifyAdminCredentials(username: string, password: string)
 
     if (username !== adminUsername) return false;
 
-    if (adminPassword.startsWith('$2')) {
-        return await bcrypt.compare(password, adminPassword);
-      } else {
-        return password === adminPassword;
-      }
+    return await bcrypt.compare(password, adminPassword);
 }
 
-export function signAdminToken(payload: object) {
-  const secret = process.env.JWT_SECRET as string;
-  if (!secret) throw new Error("JWT_SECRET is missing");
+export function signAdminToken(payload: {role: "admin"}) {
 
   const expiresIn = process.env.JWT_EXPIRES_IN || "1h";
 
-  return jwt.sign(payload, secret, { expiresIn: expiresIn});
+  return jwt.sign(payload, JWT_SECRET, { expiresIn: expiresIn});
 }
