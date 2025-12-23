@@ -25,6 +25,7 @@ dist-ssr
 
 #ignorar archivos de configuración de entorno
 .env
-
-#server
-server/src/
+.env.local
+.env.development
+.env.production
+.env.test
