@@ -30,7 +30,7 @@ export default function Navbar({
   return (
     <nav
       className={styles.navbarNav}>
-        <img src={logo} alt="medtrack logo" width="120px" height="60px" />
+      <img src={logo} alt="medtrack logo" width="120px" height="60px" />
       {tabs.map(({ label, route, icon }, index) => (
         <button
           key={index || route}
