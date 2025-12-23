@@ -2,6 +2,7 @@ import express from 'express';
 import patientsRouter from './patients/patients.routes';
 import entriesRouter from './entries/entries.routes'
 import cors from 'cors';
+import authRoutes from "./auth/auth.routes";
 
 const app = express();
 const port = 3000;
@@ -12,6 +13,9 @@ app.use(cors({
   credentials: true
 }));
 app.use(express.json());
+
+// Login route
+app.use("/auth", authRoutes);
 
 // Dashboard route to see patients
 app.use('/dashboard', patientsRouter);
