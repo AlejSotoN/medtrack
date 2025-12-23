@@ -8,23 +8,23 @@ export default function Root() {
     const navigate = useNavigate();
 
     const currentRoute = location.pathname;
-    
+
     const handleNavigation = (route: string) => {
         navigate(route);
     }
 
     const homeNavbarTabs: NavbarTab[] = [
-        { label: 'Login', route: '/auth', icon: '🏠' },      
+        { label: 'Login', route: '/login', icon: '🏠' },
     ];
-    
+
     return (
-    <>
-        <Navbar
-            tabs={homeNavbarTabs}
-            onTabClick={handleNavigation}
-            activeRoute={currentRoute}
-        />
-        <Outlet/>
-    </> 
+        <>
+            <Navbar
+                tabs={homeNavbarTabs}
+                onTabClick={handleNavigation}
+                activeRoute={currentRoute}
+            />
+            <Outlet />
+        </>
     )
 }
