@@ -1,36 +1,39 @@
-import bcrypt from 'bcrypt';
-import * as jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
+import bcrypt from "bcrypt";
+import jwt, { Secret, SignOptions } from "jsonwebtoken";
+import type { StringValue } from "ms";
+import dotenv from "dotenv";
 
 dotenv.config();
 
-type LoginResult = {
-    token: string;
-    expiresIn: string;
+export async function verifyAdminCredentials(
+  username: string,
+  password: string
+): Promise<boolean> {
+  const adminUsername = process.env.ADMIN_USERNAME;
+  const adminPassword = process.env.ADMIN_PASSWORD;
+
+  if (!adminUsername || !adminPassword) {
+    throw new Error("Admin credentials are not set in environment variables.");
+  }
+
+  if (username !== adminUsername) return false;
+
+  return bcrypt.compare(password, adminPassword);
 }
 
-const JWT_SECRET = process.env.JWT_SECRET;
+export function signAdminToken(payload: object): string {
+  const jwtSecret = process.env.JWT_SECRET;
 
-if (!JWT_SECRET) {
-  throw new Error("JWT_SECRET is not defined");
-}
+  if (!jwtSecret) {
+    throw new Error("JWT_SECRET is not defined");
+  }
 
-export async function verifyAdminCredentials(username: string, password: string): Promise<boolean> {
-    const adminUsername = process.env.ADMIN_USERNAME;
-    const adminPassword = process.env.ADMIN_PASSWORD;
+  const secret: Secret = jwtSecret;
 
-    if (!adminUsername || !adminPassword) {
-        throw new Error('Admin credentials are not set in environment variables.');
-    }
+  const expiresIn =
+    (process.env.JWT_EXPIRES_IN as StringValue | undefined) ?? "1h";
 
-    if (username !== adminUsername) return false;
+  const options: SignOptions = { expiresIn };
 
-    return await bcrypt.compare(password, adminPassword);
-}
-
-export function signAdminToken(payload: {role: "admin"}) {
-
-  const expiresIn = process.env.JWT_EXPIRES_IN || "1h";
-
-  return jwt.sign(payload, JWT_SECRET, { expiresIn: expiresIn});
+  return jwt.sign(payload, secret, options);
 }
