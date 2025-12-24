@@ -2,7 +2,7 @@ import React from "react"
 import styles from '../Dashboard/Dashboard.module.css'
 import Input from "../../components/ui/Input/Input"
 import Button from "../../components/ui/Button/Button"
-import { postEntry } from "../../services/entries.server"
+import { postEntry } from "../../services/entries.client"
 import { useParams } from "react-router-dom"
 import { Entry } from "services/types"
 interface EntryFormProps {

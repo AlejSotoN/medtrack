@@ -2,14 +2,14 @@ import React from "react"
 import styles from './Dashboard.module.css'
 import Input from "../../components/ui/Input/Input"
 import Button from "../../components/ui/Button/Button"
-import { postPatient } from "../../services/patient.server"
+import { postPatient } from "../../services/patient.client"
 import { useNavigate, useRevalidator } from "react-router-dom"
 
-export default function PatientForm({ 
-    setIsModalOpen, 
+export default function PatientForm({
+    setIsModalOpen,
     onSuccess
-}: { 
-    setIsModalOpen: (isOpen: boolean) => void ;
+}: {
+    setIsModalOpen: (isOpen: boolean) => void;
     onSuccess?: () => void;
 }) {
     const [firstName, setFirstName] = React.useState<string>("");
@@ -28,7 +28,7 @@ export default function PatientForm({
         }
         try {
             await postPatient(newPatient);
-            
+
             revalidator.revalidate();
 
             onSuccess?.();

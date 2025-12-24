@@ -3,7 +3,7 @@ import styles from "./PatientCard.module.css"
 import { Patient } from 'services/types'
 import Button from '../Button/Button'
 import BaseModal from '../BaseModal/BaseModal'
-import { deletePatient } from '../../../services/patient.server'
+import { deletePatient } from '../../../services/patient.client'
 import { useNavigate, useRevalidator } from 'react-router-dom'
 
 function formatDateTime(isoDate: string) {
