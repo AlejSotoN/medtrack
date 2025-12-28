@@ -1,30 +1,31 @@
-import axios from "axios";
 import { Entry, EntryUpdatePayload } from "./types"
 import { API_URL } from "../config/localhost_env";                                                                                                                        
+import api from "./api";
+
 export async function getEntries(): Promise<Entry[]> {
-    const response = await axios.get(`${API_URL}/entries`);
+    const response = await api.get(`${API_URL}/entries`);
     const result: Entry[] = response.data;
     return result;
 }
 
 export async function getEntriesByPatientId(id: string): Promise<Entry[]> {
-    const response = await axios.get(`${API_URL}/entries/patientId/${id}`);
+    const response = await api.get(`${API_URL}/entries/patientId/${id}`);
     const result = response.data;
     return result;
 }
 
 export async function postEntry(newEntry: Partial<Entry>): Promise<Entry> {
-    const response = await axios.post(`${API_URL}/entries`, newEntry);
+    const response = await api.post(`${API_URL}/entries`, newEntry);
     const result: Entry = response.data;
     return result;
 }
 
 export async function deleteEntry(entryId: string): Promise<void> {
-    await axios.delete(`${API_URL}/entries/patientId/${entryId}`);
+    await api.delete(`${API_URL}/entries/patientId/${entryId}`);
 }
 
 export async function updateEntry(updatedEntry: EntryUpdatePayload): Promise<Entry> {
-    const response = await axios.put(`${API_URL}/entries/patientId/${updatedEntry.patient_id}/entryId/${updatedEntry.entry_id}`, updatedEntry);
+    const response = await api.put(`${API_URL}/entries/patientId/${updatedEntry.patient_id}/entryId/${updatedEntry.entry_id}`, updatedEntry);
     const result: Entry = response.data;
     return result;
 }
