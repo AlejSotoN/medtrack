@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom"
-import { login } from "../../services/auth.client";
+import { login, saveToken } from "../../services/auth.client";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -19,8 +19,7 @@ export default function Login() {
       const result = await login(username, password);
 
       console.log("Login successful:", result);
-
-      localStorage.setItem("token", result.token);
+      saveToken(result.token);
 
       // TEMP success simulation
       navigate("/dashboard");
