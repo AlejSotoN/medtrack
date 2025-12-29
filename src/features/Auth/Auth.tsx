@@ -31,7 +31,7 @@ export default function Login() {
   };
 
   return (
-    <div style={{ maxWidth: 400, margin: "4rem auto" }}>
+    <div style={{ maxWidth: 400, margin: "5rem auto", display: "flex", flexDirection: "column", gap: "1.5rem", alignItems: "center", justifyContent: "center", padding: "2rem" }}>
       <h2>Admin Login</h2>
 
       <form onSubmit={handleSubmit}>
