@@ -23,6 +23,10 @@ export async function login(
   return response.data;
 }
 
+export function logout() {
+  clearToken();
+}
+
 export function saveToken(token: string) {
   localStorage.setItem(TOKEN_KEY, token);
 }
@@ -34,4 +38,3 @@ export function getToken(): string | null {
 export function clearToken() {
   localStorage.removeItem(TOKEN_KEY);
 }
-
