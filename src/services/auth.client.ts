@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "./api";
 
 const API_URL = import.meta.env.VITE_API_URL;
 const TOKEN_KEY = "medtrack_token";
@@ -12,8 +12,8 @@ export async function login(
   username: string,
   password: string
 ): Promise<LoginResponse> {
-  const response = await axios.post<LoginResponse>(
-    `${API_URL}/auth/login`,
+  const response = await api.post<LoginResponse>(
+    `/auth/login`,
     {
       username,
       password,
