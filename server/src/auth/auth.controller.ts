@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { verifyAdminCredentials, signAdminToken } from "../../services/authService";
+import { verifyAdminCredentials, signAdminToken } from "./auth.service";
 
 export async function login(req: Request, res: Response): Promise<void> {
   try {
