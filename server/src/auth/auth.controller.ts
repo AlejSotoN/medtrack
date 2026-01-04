@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { AuthenticatedRequest } from "../middleware/auth.middleware";
 import { verifyAdminCredentials, signAdminToken } from "./auth.service";
 
 export async function login(req: Request, res: Response): Promise<void> {
@@ -17,7 +18,7 @@ export async function login(req: Request, res: Response): Promise<void> {
       return;
     }
 
-    const token = signAdminToken({ role: "admin" });
+    const token = signAdminToken({ role: "admin", id: "admin" });
 
     res.status(200).json({
       token,
@@ -28,3 +29,14 @@ export async function login(req: Request, res: Response): Promise<void> {
     res.status(500).json({ message: "Internal server error" });
   }
 }
+
+export const authMe = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
+  if (!req.user) { 
+    res.status(401).json({ message: "Not authenticated" });
+    return;
+  }
+  res.json({
+    id: req.user!.sub,
+    role: req.user!.role,
+  });
+};
