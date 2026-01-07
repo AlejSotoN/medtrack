@@ -1,7 +1,7 @@
 import api from "./api";
 
-const API_URL = import.meta.env.VITE_API_URL;
 const TOKEN_KEY = "medtrack_token";
+const EXP_KEY = "medtrack_token_expires_at";
 
 export type LoginResponse = {
   token: string;
@@ -24,17 +24,6 @@ export async function login(
 }
 
 export function logout() {
-  clearToken();
-}
-
-export function saveToken(token: string) {
-  localStorage.setItem(TOKEN_KEY, token);
-}
-
-export function getToken(): string | null {
-  return localStorage.getItem(TOKEN_KEY);
-}
-
-export function clearToken() {
   localStorage.removeItem(TOKEN_KEY);
+  localStorage.removeItem(EXP_KEY);
 }
