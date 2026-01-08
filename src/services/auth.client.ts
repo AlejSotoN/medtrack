@@ -13,7 +13,7 @@ export async function login(
   password: string
 ): Promise<LoginResponse> {
   const response = await api.post<LoginResponse>(
-    `/auth/login`,
+    `/auth`,
     {
       username,
       password,
