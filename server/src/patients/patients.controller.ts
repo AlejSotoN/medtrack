@@ -19,7 +19,7 @@ export async function getPatient(req: Request, res: Response): Promise<void> {
     return;
   }
   try {
-    const patient = await getPatientById(patientId);
+    const patient = await getPatientById(String(patientId));
     if (patient) {
       res.status(200).json(patient);
     } else {
@@ -39,7 +39,7 @@ export function createPatient(req: Request, res: Response) {
 
 export function deletePatientById(req: Request, res: Response) {
   const patientId = req.params.id;
-  deletePatient(patientId);
+  deletePatient(String(patientId));
   // const patient = updatePatient(patientId, updatedPatient);
   res.status(200).json({ message: `Patient with ID ${patientId} deleted.` });
 }
@@ -55,7 +55,7 @@ export async function patchPatient(req: Request, res: Response): Promise<void> {
       return;
     }
 
-    const updatedPatient = await updatePatient(id, updatedFields);
+    const updatedPatient = await updatePatient(String(id), updatedFields);
 
     if (!updatedPatient) {
       res.status(404).json({ error: `Patient with ID ${id} not found.` });

@@ -19,7 +19,7 @@ export async function getPatientEntries(req: Request, res: Response): Promise<vo
     return;
   }
   try {
-    const entry = await getEntriesByPatientId(entryByPatientId);
+    const entry = await getEntriesByPatientId(String(entryByPatientId));
     if (entry) {
       res.status(200).json(entry);
 
@@ -39,7 +39,7 @@ export async function getEntryByEntryId(req: Request, res: Response) {
     return;
   }
   try {
-    const entry = await getEntryById(entryId);
+    const entry = await getEntryById(String(entryId));
     if (entry) {
       res.status(200).json(entry);
     } else {
@@ -79,6 +79,6 @@ export async function updateEntryController(req: Request, res: Response) {
 
 export async function deleteEntryById(req: Request, res: Response) {
   const entryId = req.params.id;
-  deleteEntry(entryId);
+  deleteEntry(String(entryId));
   res.status(200).json({ message: `Entry with ID ${entryId} deleted.` });
 }
