@@ -13,7 +13,7 @@
 },
   "author": "Alejandro Soto",
   "license": "ISC",
-  "devDependencies": {
+  "dependencies": {
     "@types/node": "^25.1.0"
   }
 }
