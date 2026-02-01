@@ -1,6 +1,6 @@
-import React, { use } from 'react'
+import React from 'react'
 import styles from "./PatientCard.module.css"
-import { Patient } from 'services/types'
+import { Patient } from '../../../services/types'
 import Button from '../Button/Button'
 import BaseModal from '../BaseModal/BaseModal'
 import { deletePatient } from '../../../services/patient.client'

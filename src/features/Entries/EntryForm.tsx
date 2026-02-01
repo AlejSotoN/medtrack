@@ -4,7 +4,6 @@ import Input from "../../components/ui/Input/Input"
 import Button from "../../components/ui/Button/Button"
 import { postEntry } from "../../services/entries.client"
 import { useParams } from "react-router-dom"
-import { Entry } from "services/types"
 interface EntryFormProps {
     setIsModalOpen: (isOpen: boolean) => void;
 }
@@ -21,7 +20,7 @@ export default function EntryForm({ setIsModalOpen }: EntryFormProps) {
 
     const handleSubmit = async () => {
         const newEntry = {
-            patient_id: patientId!,
+            patient_id: parseInt(patientId!, 10),
             main_symptoms: mainSymptoms,
             condition_description: conditionDescription,
             diagnosis,

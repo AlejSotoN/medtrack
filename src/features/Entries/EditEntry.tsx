@@ -3,7 +3,7 @@ import styles from './EditEntry.module.css'
 import Input from '../../components/ui/Input/Input'
 import Button from '../../components/ui/Button/Button'
 import { useLoaderData, useNavigate, useParams } from 'react-router-dom'
-import { Entry, PatientProfileLoaderData } from 'services/types'
+import { Entry, PatientProfileLoaderData } from '../../services/types'
 import { updateEntry } from '../../services/entries.client'
 
 interface EntryFormProps {

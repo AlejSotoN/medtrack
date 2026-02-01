@@ -35,16 +35,16 @@ export default function EntryCard({ data }: EntryCardProps) {
       {data.length > 0 ? (
         data.map((entry) => (
 
-          <div key={parseInt(entry.entry_id)}>
+          <div key={entry.entry_id}>
             <div
               className={styles.entryCard}
-              onClick={() => toggleExpand(entry.entry_id)}
+              onClick={() => toggleExpand(String(entry.entry_id))}
             >
               <span>{formatDateTime(String(entry.date_created))}</span>
               <span>{entry.main_symptoms}</span>
-              <span className={styles.toggle}>{expandedIndex === entry.entry_id ? '▲' : '▼'}</span>
+              <span className={styles.toggle}>{expandedIndex === String(entry.entry_id) ? '▲' : '▼'}</span>
             </div>
-            {expandedIndex === entry.entry_id && (
+            {expandedIndex === String(entry.entry_id) && (
               <div className={styles.entryCardDetails}>
 
                 {entry.condition_description && <p className={styles.p}><strong>Description:</strong> {entry.condition_description}</p>}
