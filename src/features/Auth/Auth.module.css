@@ -1,3 +1,4 @@
+/* Page Wrapper */
 .container {
     min-height: 100vh;
     background: var(--color-background);
@@ -5,23 +6,32 @@
     align-items: center;
     justify-content: center;
     font-family: var(--font-family);
-  }
-  
+    padding: 1rem;
+}
+
+/* Card */
   .card {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
     background: #020617;
     border: 1px solid var(--color-border);
     border-radius: 12px;
-    padding: 2.5rem;
+    padding: 2rem 1.75rem;
     width: 100%;
     max-width: 380px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    box-shadow:
+    0 10px 25px rgba(0, 0, 0, 0.08),
+    0 4px 10px rgba(0, 0, 0, 0.05);
   }
   
+  /* Title and Subtitle */
   .title {
+    text-align: center;
     color: var(--color-foreground);
     font-size: 1.5rem;
     font-weight: 600;
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.5rem;
   }
   
   .subtitle {
@@ -42,31 +52,40 @@
     font-size: 0.85rem;
   }
   
+    /* Inputs */
   .input {
+    width: 100%;
     background: #020617;
-    border: 1px solid var(--color-border);
+    border: 1px solid var(--color-foreground);
     color: var(--color-foreground);
-    padding: 0.6rem 0.7rem;
-    border-radius: 6px;
+    padding: 0.75rem 0.85rem;
+    font-size: 0.95rem;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
   }
   
   .input:focus {
     outline: none;
     border-color: var(--color-primary);
-  }
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
   
+/* Button */
   .button {
     width: 100%;
-    margin-top: 1rem;
-    background: var(--color-primary);
+    margin-top: 0.5rem;
+    background: #2563eb;
     color: white;
     border: none;
-    padding: 0.65rem;
-    border-radius: 6px;
-    font-weight: 500;
+    padding: 0.75rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
     cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
   }
-  
+
   .button:disabled {
     opacity: 0.6;
     cursor: not-allowed;
@@ -77,5 +96,34 @@
     color: var(--color-error);
     font-size: 0.85rem;
     text-align: center;
+  }
+
+  
+
+  
+  .card button:hover {
+    background: #1e40af;
+  }
+  
+  .card button:active {
+    transform: scale(0.98);
+  }
+  
+  /* Error text */
+  .error {
+    font-size: 0.85rem;
+    color: #dc2626;
+    text-align: center;
+  }
+  
+  /* Tablet+ */
+  @media (min-width: 768px) {
+    .card {
+      padding: 2.5rem 2.25rem;
+    }
+  
+    .card h1 {
+      font-size: 1.75rem;
+    }
   }
   
