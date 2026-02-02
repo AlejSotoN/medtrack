@@ -1,7 +1,8 @@
 // src/data.ts
 import { Patient } from './types';
-import { API_URL } from '../config/localhost_env';
 import api from './api';
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 export async function getPatients(): Promise<Patient[]> {
     const response = await api.get(`${API_URL}/dashboard`)
