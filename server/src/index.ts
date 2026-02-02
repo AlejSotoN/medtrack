@@ -12,8 +12,8 @@ const port = 3000;
 
 app.use(cors({
   origin: [
-    "http://localhost:5173",
     "https://medtrack-server-sf5v.onrender.com",
+    "http://localhost:5173",
   ], 
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   credentials: true
