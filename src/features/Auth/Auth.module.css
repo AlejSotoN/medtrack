@@ -85,7 +85,7 @@
     cursor: pointer;
     transition: background 0.2s, transform 0.1s;
   }
-
+  
   .button:disabled {
     opacity: 0.6;
     cursor: not-allowed;
@@ -97,9 +97,6 @@
     font-size: 0.85rem;
     text-align: center;
   }
-
-  
-
   
   .card button:hover {
     background: #1e40af;
