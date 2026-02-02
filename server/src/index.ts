@@ -12,7 +12,7 @@ const port = 3000;
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "medtrack-rose.vercel.app",
+  /^https:\/\/.*\.vercel\.app$/,
 ]
 
 app.use(cors({
@@ -20,10 +20,14 @@ app.use(cors({
     // This allows server-to-server requests with no origin (like Postman)
     if (!origin) return callback(null, true);
 
-    if (allowedOrigins.includes(origin)) {
-      return callback(null, true);
+    const isAllowed = allowedOrigins.some((o) =>
+      typeof o === "string" ? o === origin : o.test(origin)
+    );
+
+    if (isAllowed) {
+      callback(null, true);
     } else {
-      callback(new Error("CORS policy violation: Origin not allowed"));
+      callback(new Error("CORS not allowed"));
     }
   },
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
