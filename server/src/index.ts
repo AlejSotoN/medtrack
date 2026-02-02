@@ -10,11 +10,22 @@ import { requireAuth } from './middleware/auth.middleware';
 const app = express();
 const port = 3000;
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  "medtrack-rose.vercel.app",
+]
+
 app.use(cors({
-  origin: [
-    "https://medtrack-server-sf5v.onrender.com",
-    "http://localhost:5173",
-  ], 
+  origin: (origin, callback) => {
+    // This allows server-to-server requests with no origin (like Postman)
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    } else {
+      callback(new Error("CORS policy violation: Origin not allowed"));
+    }
+  },
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   credentials: true
 }));
