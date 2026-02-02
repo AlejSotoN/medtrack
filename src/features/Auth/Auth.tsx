@@ -19,9 +19,12 @@ export default function Auth() {
 
     try {
       const { token, expiresIn } = await login(username, password);
+      console.log("LOGIN RESPONSE:", { token, expiresIn });
       saveAuth(token, expiresIn);
+      console.log("TOKEN AFTER SAVE:", localStorage.getItem("medtrack_token"));
       navigate("/dashboard", { replace: true });
     } catch {
+      console.log("LOGIN ERROR", error);
       setError("Invalid username or password");
     } finally {
       setLoading(false);

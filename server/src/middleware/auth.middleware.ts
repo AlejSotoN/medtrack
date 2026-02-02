@@ -18,10 +18,9 @@ export function requireAuth(
     console.log("Auth Header:", authHeader);
 
     if (!authHeader) {
-        res.status(401).json({ 
+        return res.status(401).json({ 
             message: "Authorization header missing" 
         });
-        return;
     };
 
     const parts = authHeader.split(" ");
