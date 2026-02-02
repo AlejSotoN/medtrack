@@ -9,6 +9,9 @@ export async function verifyAdminCredentials(
   username: string,
   password: string
 ): Promise<boolean> {
+  console.log("ADMIN_USER:", !!process.env.ADMIN_USERNAME);
+  console.log("ADMIN_PASS:", !!process.env.ADMIN_PASSWORD);
+
   const adminUsername = process.env.ADMIN_USERNAME;
   const adminPassword = process.env.ADMIN_PASSWORD;
 
