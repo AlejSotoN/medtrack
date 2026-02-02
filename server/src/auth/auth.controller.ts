@@ -21,7 +21,7 @@ export async function login(req: Request, res: Response): Promise<void> {
     const token = signAdminToken({ role: "admin", id: "admin" });
 
     res.status(200).json({
-      token: "test-token",
+      token,
       expiresIn: process.env.JWT_EXPIRES_IN || "1h",
     });
   } catch (error) {
