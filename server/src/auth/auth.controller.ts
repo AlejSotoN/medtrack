@@ -4,6 +4,10 @@ import { verifyAdminCredentials, signAdminToken } from "./auth.service";
 
 export async function login(req: Request, res: Response): Promise<void> {
   try {
+
+    console.log("ADMIN_USER:", !!process.env.ADMIN_USERNAME);
+    console.log("ADMIN_PASS:", !!process.env.ADMIN_PASSWORD);
+    
     const { username, password } = req.body;
 
     if (!username || !password) {
