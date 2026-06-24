@@ -1,102 +1,43 @@
 import React from 'react'
 import styles from './editPatient.module.css'
-import Input from '../../components/ui/Input/Input'
-import Button from '../../components/ui/Button/Button'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useLoaderData, useNavigate } from 'react-router-dom'
+import { PatientLoaderData } from '../../services/types'
+import PatientForm from '../Dashboard/PatientForm'
 
-export default function editPatient() {
-    const navigate = useNavigate()
-    const { patientId } = useParams<{ patientId: string }>();
-    const [dateOfBirth, setDateOfBirth] = React.useState('');
-    const [gender, setGender] = React.useState('');
-    const [address, setAddress] = React.useState('');
-    const [phone, setPhone] = React.useState('');
+function BackIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+      <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
 
-    console.log("patient ID", patientId)
+export default function EditPatient() {
+  const navigate = useNavigate();
+  const { patient } = useLoaderData() as PatientLoaderData;
 
-    const handleSubmit = async () => {
-        try {
-            const updatedData = {
-                dateOfBirth,
-                gender,
-                address,
-                phoneNum: phone,
-            };
-
-            const response = await fetch(`http://localhost:3000/dashboard/${patientId}`, {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(updatedData),
-            });
-
-            if (!response.ok) {
-                throw new Error(`Failed to update patient: ${response.statusText}`);
-            }
-
-            const updatedPatient = await response.json();
-            console.log("✅ Patient updated:", updatedPatient);
-
-            navigate(-1); // Go back after successful update
-        } catch (error) {
-            console.error("❌ Error updating patient:", error);
-            alert("Error updating patient. Please try again.");
-        }
-    };
-
-    return (
-        <div className={styles.mainContainer}>
-            <Button
-                onClick={() => navigate(-1)}
-                className={styles.backButton}
-            >
-                Back
-            </Button>
-            <div className={styles.formContainer}>
-                <div className={styles.modalDiv}>
-                    <h3>Date of Birth</h3>
-                    <Input
-                        type='date'
-                        placeholder='31/03/1998'
-                        onChange={(e) => setDateOfBirth(e.target.value)}
-                        value={dateOfBirth}
-                        className={styles.input}
-                    />
-                </div>
-                <div className={styles.modalDiv}>
-                    <h3>Gender</h3>
-                    <Input
-                        placeholder='Male'
-                        onChange={(e) => setGender(e.target.value)}
-                        value={gender}
-                        className={styles.input}
-                    />
-                </div>
-                <div className={styles.modalDiv}>
-                    <h3>Address</h3>
-                    <Input
-                        placeholder='Street 123, City, Country'
-                        onChange={(e) => setAddress(e.target.value)}
-                        value={address}
-                        className={styles.input}
-                    />
-                </div>
-                <div className={styles.modalDiv}>
-                    <h3>Phone</h3>
-                    <Input
-                        placeholder='+1 234 567 890'
-                        onChange={(e) => setPhone(e.target.value)}
-                        value={phone}
-                        className={styles.input}
-                    />
-                </div>
-            </div>
-            <Button
-                onClick={handleSubmit}
-            >
-                Submit
-            </Button>
+  return (
+    <div className={styles.page}>
+      <div className={styles.pageHeader}>
+        <button className={styles.backBtn} onClick={() => navigate(-1)}>
+          <BackIcon /> Back
+        </button>
+        <div>
+          <h1 className={styles.title}>Edit Patient</h1>
+          <p className={styles.subtitle}>
+            {patient ? `${patient.first_name} ${patient.last_name}` : 'Update patient information'}
+          </p>
         </div>
-    )
+      </div>
+
+      <div className={styles.card}>
+        <PatientForm
+          mode="edit"
+          patient={patient}
+          onCancel={() => navigate(-1)}
+          onSuccess={() => navigate(-1)}
+        />
+      </div>
+    </div>
+  );
 }

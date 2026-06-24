@@ -1,6 +1,22 @@
-.div {
-    display: flex;
-    justify-content: flex-start;
-    min-width: auto;
-    height: fit-content;
+.layout {
+    display: block;
+    min-height: 100vh;
+    background: var(--color-background);
+}
+
+.main {
+    margin-left: 180px;
+    min-height: 100vh;
+    overflow-y: auto;
+    width: calc(100vw - 180px);
+    min-width: calc(100vw - 180px);
+}
+
+@media (max-width: 767px) {
+    .main {
+        margin-left: 0;
+        width: 100vw;
+        min-width: 100vw;
+        padding-top: 3.5rem;
+    }
 }
