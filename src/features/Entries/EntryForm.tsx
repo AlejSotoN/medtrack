@@ -1,110 +1,151 @@
 import React from "react"
-import styles from '../Dashboard/Dashboard.module.css'
-import Input from "../../components/ui/Input/Input"
-import Button from "../../components/ui/Button/Button"
+import styles from './EntryForm.module.css'
 import { postEntry } from "../../services/entries.client"
-import { useParams } from "react-router-dom"
+import { patchPatientMeta } from "../../services/patient.client"
+import { useParams, useRevalidator } from "react-router-dom"
+import { Patient } from "../../services/types"
+
 interface EntryFormProps {
-    setIsModalOpen: (isOpen: boolean) => void;
+    patient?: Patient;
+    onCancel: () => void;
+    onSuccess?: () => void;
 }
 
-export default function EntryForm({ setIsModalOpen }: EntryFormProps) {
+export default function EntryForm({ patient, onCancel, onSuccess }: EntryFormProps) {
     const { patientId } = useParams<{ patientId: string }>();
-    const [mainSymptoms, setMainSymptoms] = React.useState<string>("");
-    const [conditionDescription, setConditionDescription] = React.useState<string>("");
-    const [diagnosis, setDiagnosis] = React.useState<string>("");
-    const [labsAsked, setLabsAsked] = React.useState<string>("");
-    const [treatment, setTreatment] = React.useState<string>("");
-    const [notes, setNotes] = React.useState<string>("");
-    const [error, setError] = React.useState<string | null>(null)
+    const revalidator = useRevalidator();
+    const [mainSymptoms, setMainSymptoms] = React.useState("");
+    const [conditionDescription, setConditionDescription] = React.useState("");
+    const [diagnosis, setDiagnosis] = React.useState("");
+    const [labsAsked, setLabsAsked] = React.useState("");
+    const [treatment, setTreatment] = React.useState("");
+    const [notes, setNotes] = React.useState("");
+    const [nextVisit, setNextVisit] = React.useState("");
+    const [error, setError] = React.useState<string | null>(null);
+    const [loading, setLoading] = React.useState(false);
 
-    const handleSubmit = async () => {
-        const newEntry = {
-            patient_id: parseInt(patientId!, 10),
-            main_symptoms: mainSymptoms,
-            condition_description: conditionDescription,
-            diagnosis,
-            labs_asked: labsAsked,
-            treatment,
-            notes,
-        }
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setLoading(true);
+        setError(null);
         try {
-            postEntry(newEntry);
-            console.log('Submission successful', newEntry)
-        } catch (error: any) {
-            console.error('Error submitting new patient:', error);
-            setError(error.response?.data?.message || 'An error occurred while adding the patient.');
-        }
+            await postEntry({
+                patient_id: patientId!,
+                main_symptoms: mainSymptoms,
+                condition_description: conditionDescription,
+                diagnosis,
+                labs_asked: labsAsked,
+                treatment,
+                notes,
+                next_followup: nextVisit || undefined,
+            });
 
-        setIsModalOpen(false)
-    }
+            // Update last_visit (today) and next_followup on the patient record
+            if (patient) {
+                await patchPatientMeta(patient, {
+                    lastVisit: new Date().toISOString().split('T')[0],
+                    nextFollowup: nextVisit || undefined,
+                });
+            }
+
+            revalidator.revalidate();
+            onSuccess?.();
+        } catch (err: any) {
+            setError(err.response?.data?.message || 'An error occurred while adding the entry.');
+        } finally {
+            setLoading(false);
+        }
+    };
 
     return (
-        <div>
-            <div className={styles.modalContainer}>
-                <div className={styles.modalDiv}>
-                    <h3>Main symptoms</h3>
-                    <Input
-                        placeholder='i.e: Headache, fever'
-                        onChange={(e) => setMainSymptoms(e.target.value)}
+        <form className={styles.form} onSubmit={handleSubmit}>
+            <h3 className={styles.formTitle}>New Entry</h3>
+
+            <div className={styles.grid}>
+                <div className={`${styles.field} ${styles.fullWidth}`}>
+                    <label className={styles.label}>Main Symptoms</label>
+                    <input
+                        className={styles.input}
                         value={mainSymptoms}
-                        className={styles.modalInput}
+                        onChange={(e) => setMainSymptoms(e.target.value)}
+                        placeholder="e.g. Headache, fever, fatigue"
+                        required
                     />
                 </div>
-                <div className={styles.modalDiv}>
-                    <h3>Description</h3>
-                    <Input
-                        placeholder='i.e: Patient has been experiencing...'
-                        onChange={(e) => setConditionDescription(e.target.value)}
+
+                <div className={`${styles.field} ${styles.fullWidth}`}>
+                    <label className={styles.label}>Description</label>
+                    <textarea
+                        className={`${styles.input} ${styles.textarea}`}
                         value={conditionDescription}
-                        className={styles.modalInput}
+                        onChange={(e) => setConditionDescription(e.target.value)}
+                        placeholder="Patient has been experiencing…"
+                        rows={3}
                     />
                 </div>
-                <div className={styles.modalDiv}>
-                    <h3>Diagnosis</h3>
-                    <Input
-                        placeholder='i.e: Flu'
-                        onChange={(e) => setDiagnosis(e.target.value)}
+
+                <div className={styles.field}>
+                    <label className={styles.label}>Diagnosis</label>
+                    <input
+                        className={styles.input}
                         value={diagnosis}
-                        className={styles.modalInput}
+                        onChange={(e) => setDiagnosis(e.target.value)}
+                        placeholder="e.g. Influenza"
                     />
                 </div>
-                <div className={styles.modalDiv}>
-                    <h3>Labs asked</h3>
-                    <Input
-                        placeholder='i.e: Blood test'
-                        onChange={(e) => setLabsAsked(e.target.value)}
+
+                <div className={styles.field}>
+                    <label className={styles.label}>Labs Requested</label>
+                    <input
+                        className={styles.input}
                         value={labsAsked}
-                        className={styles.modalInput}
+                        onChange={(e) => setLabsAsked(e.target.value)}
+                        placeholder="e.g. CBC, metabolic panel"
                     />
                 </div>
-                <div className={styles.modalDiv}>
-                    <h3>Treatment</h3>
-                    <Input
-                        placeholder='i.e: Ibuprofen 400mg'
-                        onChange={(e) => setTreatment(e.target.value)}
+
+                <div className={`${styles.field} ${styles.fullWidth}`}>
+                    <label className={styles.label}>Treatment</label>
+                    <textarea
+                        className={`${styles.input} ${styles.textarea}`}
                         value={treatment}
-                        className={styles.modalInput}
+                        onChange={(e) => setTreatment(e.target.value)}
+                        placeholder="e.g. Ibuprofen 400mg every 8h"
+                        rows={2}
                     />
                 </div>
-                <div className={styles.modalDiv}>
-                    <h3>Notes</h3>
-                    <Input
-                        placeholder=''
-                        onChange={(e) => setNotes(e.target.value)}
+
+                <div className={styles.field}>
+                    <label className={styles.label}>Next Visit</label>
+                    <input
+                        className={styles.input}
+                        type="date"
+                        value={nextVisit}
+                        onChange={(e) => setNextVisit(e.target.value)}
+                    />
+                </div>
+
+                <div className={styles.field}>
+                    <label className={styles.label}>Notes</label>
+                    <input
+                        className={styles.input}
                         value={notes}
-                        className={styles.modalInput}
+                        onChange={(e) => setNotes(e.target.value)}
+                        placeholder="Additional observations…"
                     />
                 </div>
-
             </div>
-            <Button
-                onClick={handleSubmit}
-            >
-                Submit
-            </Button>
-        </div>
 
-    )
+            {error && <p className={styles.error}>{error}</p>}
+
+            <div className={styles.actions}>
+                <button type="button" className={styles.cancelBtn} onClick={onCancel}>
+                    Cancel
+                </button>
+                <button type="submit" className={styles.submitBtn} disabled={loading}>
+                    {loading ? "Saving…" : "Add Entry"}
+                </button>
+            </div>
+        </form>
+    );
 }
-
