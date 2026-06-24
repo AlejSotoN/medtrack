@@ -5,35 +5,29 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-export async function verifyAdminCredentials(
-  username: string,
-  password: string
-): Promise<boolean> {
-  const adminUsername = process.env.ADMIN_USERNAME;
-  const adminPassword = process.env.ADMIN_PASSWORD;
+export async function verifyAdminCredentials(username: string, password: string): Promise<boolean> {
+    const adminUsername = process.env.ADMIN_USERNAME;
+    const adminPassword = process.env.ADMIN_PASSWORD;
 
-  if (!adminUsername || !adminPassword) {
-    throw new Error("Admin credentials are not set in environment variables.");
-  }
+    if (!adminUsername || !adminPassword) {
+        throw new Error("Admin credentials are not set in environment variables.");
+    }
 
-  if (username !== adminUsername) return false;
+    if (username !== adminUsername) return false;
 
-  return bcrypt.compare(password, adminPassword);
+    return bcrypt.compare(password, adminPassword);
 }
 
 export function signAdminToken(payload: object): string {
-  const jwtSecret = process.env.JWT_SECRET;
+    const jwtSecret = process.env.JWT_SECRET;
 
-  if (!jwtSecret) {
-    throw new Error("JWT_SECRET is not defined");
-  }
+    if (!jwtSecret) {
+        throw new Error("JWT_SECRET is not defined");
+    }
 
-  const secret: Secret = jwtSecret;
+    const secret: Secret = jwtSecret;
+    const expiresIn = (process.env.JWT_EXPIRES_IN as StringValue | undefined) ?? "1h";
+    const options: SignOptions = { expiresIn };
 
-  const expiresIn =
-    (process.env.JWT_EXPIRES_IN as StringValue | undefined) ?? "1h";
-
-  const options: SignOptions = { expiresIn };
-
-  return jwt.sign(payload, secret, options);
+    return jwt.sign(payload, secret, options);
 }

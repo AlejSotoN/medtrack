@@ -4,7 +4,7 @@ import { createEntry, deleteEntryById, getAllEntries, getEntryByEntryId, getPati
 const router = express.Router();
 
 router.get('/', getAllEntries);
-router.get('/patientId/:id', getPatientEntries)
+router.get('/patientId/:id', getPatientEntries);
 router.get('/patientId/:id/entryId/:id', getEntryByEntryId);
 router.post('/', createEntry);
 router.delete('/patientId/:id', deleteEntryById);
