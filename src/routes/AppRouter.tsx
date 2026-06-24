@@ -11,10 +11,13 @@ import ProtectedRoute from "./ProtectedRoute"
 import NotFound from "../components/ui/NotFound/NotFound"
 import Home from "../features/Home/Home"
 import Auth from "../features/Auth/Auth"
+import Register from "../features/Auth/Register"
 import PatientProfile from "../features/PatientProfile/PatientProfile"
 import Entries from "../features/Entries/Entries"
 import EditEntry from "../features/Entries/EditEntry"
 import editPatient from "../features/editPatient/editPatient"
+import Doctors from "../features/Doctors/Doctors"
+import Profile from "../features/Profile/Profile"
 
 export const AppRouter = createBrowserRouter([
     {
@@ -35,6 +38,16 @@ export const AppRouter = createBrowserRouter([
             {
                 index: true,
                 Component: Auth,
+            },
+        ]
+    },
+    {
+        path: "register",
+        Component: AuthLayout,
+        children: [
+            {
+                index: true,
+                Component: Register,
             },
         ]
     },
@@ -69,6 +82,14 @@ export const AppRouter = createBrowserRouter([
                         path: "entries",
                         Component: Entries,
                         loader: entriesLoader(getEntries)
+                    },
+                    {
+                        path: "doctors",
+                        Component: Doctors,
+                    },
+                    {
+                        path: "profile",
+                        Component: Profile,
                     },
                 ]
             }

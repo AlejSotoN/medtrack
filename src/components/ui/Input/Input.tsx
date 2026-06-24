@@ -9,14 +9,14 @@ interface InputProps {
   className?: string;
 }
 
-export default function Input({type = "text", placeholder = "", value = "", onChange, className}: InputProps) {
+export default function Input({ type = "text", placeholder = "", value = "", onChange, className }: InputProps) {
   return (
-    <input 
+    <input
       type={type}
       placeholder={placeholder}
       value={value}
       onChange={onChange}
-      className={className}
+      className={`${styles.input}${className ? ` ${className}` : ''}`}
     />
   )
 }

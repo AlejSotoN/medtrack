@@ -7,120 +7,225 @@
     justify-content: center;
     font-family: var(--font-family);
     padding: 1rem;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(59, 130, 246, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59, 130, 246, 0.04) 1px, transparent 1px);
+    background-size: 64px 64px;
+    pointer-events: none;
+}
+
+.container::after {
+    content: '';
+    position: absolute;
+    top: -160px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+/* Logo above card */
+.logoWrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.logo {
+    width: 150px;
+    height: auto;
 }
 
 /* Card */
-  .card {
+.card {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    background: #020617;
-    border: 1px solid var(--color-border);
-    border-radius: 12px;
+    align-items: stretch;
+    gap: 0;
+    background: rgba(2, 6, 23, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
     padding: 2rem 1.75rem;
     width: 100%;
-    max-width: 380px;
+    max-width: 400px;
     box-shadow:
-    0 10px 25px rgba(0, 0, 0, 0.08),
-    0 4px 10px rgba(0, 0, 0, 0.05);
-  }
-  
-  /* Title and Subtitle */
-  .title {
+        0 25px 50px rgba(0, 0, 0, 0.35),
+        0 0 0 1px rgba(59, 130, 246, 0.05);
+    position: relative;
+    z-index: 1;
+}
+
+/* Title and Subtitle */
+.title {
     text-align: center;
-    color: var(--color-foreground);
+    color: #f1f5f9;
     font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-  }
-  
-  .subtitle {
-    color: var(--color-secondary);
-    font-size: 0.9rem;
-    margin-bottom: 2rem;
-  }
-  
-  .field {
+    font-weight: 700;
+    margin: 0 0 0.3rem;
+}
+
+.subtitle {
+    color: rgba(148, 163, 184, 0.7);
+    font-size: 0.875rem;
+    text-align: center;
+    margin: 0 0 1.75rem;
+}
+
+/* Form fields */
+.field {
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
-    margin-bottom: 1.25rem;
-  }
-  
-  .label {
-    color: var(--color-secondary);
-    font-size: 0.85rem;
-  }
-  
-    /* Inputs */
-  .input {
+    margin-bottom: 1rem;
+}
+
+.label {
+    color: rgba(148, 163, 184, 0.85);
+    font-size: 0.82rem;
+    font-weight: 500;
+}
+
+/* Inputs */
+.input {
     width: 100%;
-    background: #020617;
-    border: 1px solid var(--color-foreground);
-    color: var(--color-foreground);
-    padding: 0.75rem 0.85rem;
-    font-size: 0.95rem;
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #e2e8f0;
+    padding: 0.7rem 0.85rem;
+    font-size: 0.925rem;
     border-radius: 8px;
     outline: none;
     transition: border-color 0.2s, box-shadow 0.2s;
-  }
-  
-  .input:focus {
-    outline: none;
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+    font-family: inherit;
 }
-  
-/* Button */
-  .button {
+
+.input::placeholder {
+    color: rgba(148, 163, 184, 0.4);
+}
+
+.input:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+/* Submit button */
+.button {
     width: 100%;
-    margin-top: 0.5rem;
-    background: #2563eb;
+    margin-top: 0.75rem;
+    background: linear-gradient(135deg, #2563eb, #0284c7);
     color: white;
     border: none;
     padding: 0.75rem;
     border-radius: 8px;
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: 600;
     cursor: pointer;
-    transition: background 0.2s, transform 0.1s;
-  }
-  
-  .button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
-  
-  .error {
-    margin-top: 1rem;
-    color: var(--color-error);
-    font-size: 0.85rem;
-    text-align: center;
-  }
-  
-  .card button:hover {
-    background: #1e40af;
-  }
-  
-  .card button:active {
+    transition: opacity 0.2s, transform 0.1s;
+    letter-spacing: 0.01em;
+}
+
+.button:hover:not(:disabled) {
+    opacity: 0.9;
+}
+
+.button:active:not(:disabled) {
     transform: scale(0.98);
-  }
-  
-  /* Error text */
-  .error {
-    font-size: 0.85rem;
-    color: #dc2626;
+}
+
+.button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+/* Error */
+.error {
+    margin-top: 0.75rem;
+    color: #fca5a5;
+    font-size: 0.82rem;
     text-align: center;
-  }
-  
-  /* Tablet+ */
-  @media (min-width: 768px) {
+    background: rgba(239, 68, 68, 0.08);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+}
+
+/* "Don't have an account?" */
+.footerText {
+    margin-top: 1.25rem;
+    text-align: center;
+    font-size: 0.85rem;
+    color: rgba(148, 163, 184, 0.65);
+}
+
+.footerLink {
+    color: #60a5fa;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.15s;
+}
+
+.footerLink:hover {
+    color: #93c5fd;
+    text-decoration: underline;
+}
+
+/* Tab switcher (Register page) */
+.tabSwitcher {
+    display: flex;
+    flex-direction: row;
+    gap: 0.375rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 0.3rem;
+    margin-bottom: 1.5rem;
+}
+
+.tabBtn {
+    flex: 1;
+    padding: 0.5rem 0.75rem;
+    border-radius: 7px;
+    border: none;
+    background: transparent;
+    color: rgba(148, 163, 184, 0.65);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    font-family: inherit;
+}
+
+.tabBtn:hover {
+    color: #e2e8f0;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.tabBtnActive {
+    background: rgba(59, 130, 246, 0.2);
+    color: #93c5fd;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.tabBtnActive:hover {
+    background: rgba(59, 130, 246, 0.25);
+    color: #93c5fd;
+}
+
+@media (min-width: 768px) {
     .card {
-      padding: 2.5rem 2.25rem;
+        padding: 2.5rem 2.25rem;
     }
-  
-    .card h1 {
-      font-size: 1.75rem;
-    }
-  }
-  
+}

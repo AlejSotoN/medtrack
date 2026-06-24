@@ -1,27 +1,64 @@
 .button {
-    background-color: var(--color-primary);
-    border: none;
-    border-radius: 6px;
-    color: var(--color-foreground);
-    padding: 12px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-family: var(--font-family);
-    font-weight: 500;
-    font-size: 0.9rem;
-    margin: 4px 2px;
-    cursor: pointer;    
+  background: linear-gradient(135deg, #2563eb, #0284c7);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  padding: 0.5rem 1.1rem;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  white-space: nowrap;
 }
 
-.button:hover{
-    background-color: #1d4ed8;
+.button:hover {
+  opacity: 0.88;
 }
 
 .button:active {
-    transform: scale(0.9); /* Even darker green on click */
+  transform: scale(0.97);
 }
+
 .button:disabled {
-    background-color: #ccc; /* Grey when disabled */
-    cursor: not-allowed;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Danger variant — red outline, for destructive confirmations */
+.danger {
+  background: transparent;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: rgba(239, 68, 68, 0.8);
+  border-radius: 8px;
+  padding: 0.5rem 1.1rem;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.danger:hover {
+  background: rgba(239, 68, 68, 0.1);
+  color: #fca5a5;
+}
+
+/* Ghost variant — transparent with subtle border */
+.ghost {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(148, 163, 184, 0.75);
+  border-radius: 8px;
+  padding: 0.5rem 1.1rem;
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.ghost:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #e2e8f0;
 }

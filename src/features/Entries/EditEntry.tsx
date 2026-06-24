@@ -1,123 +1,148 @@
 import React from 'react'
 import styles from './EditEntry.module.css'
-import Input from '../../components/ui/Input/Input'
-import Button from '../../components/ui/Button/Button'
 import { useLoaderData, useNavigate, useParams } from 'react-router-dom'
-import { Entry, PatientProfileLoaderData } from '../../services/types'
+import { PatientProfileLoaderData } from '../../services/types'
 import { updateEntry } from '../../services/entries.client'
 
-interface EntryFormProps {
-    initialData?: Entry;
-    onSuccess?: () => void;
+function BackIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+      <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
 }
 
-export default function EditEntry({ initialData, onSuccess }: EntryFormProps) {
-    ;
-    const navigate = useNavigate()
-    const params = useParams<{ entryId: string, patientId: string }>();
-    const { entries } = useLoaderData() as PatientProfileLoaderData;
+export default function EditEntry() {
+  const navigate = useNavigate();
+  const params = useParams<{ entryId: string; patientId: string }>();
+  const { entries } = useLoaderData() as PatientProfileLoaderData;
 
-    const entry = entries.find(e => (e.entry_id).toString() === (params.entryId));
+  const entry = entries.find(e => String(e.entry_id) === params.entryId);
 
-    const [mainSymptoms, setMainSymptoms] = React.useState(entry?.main_symptoms || '');
-    const [conditionDescription, setConditionDescription] = React.useState(entry?.condition_description || '');
-    const [labsAsked, setLabsAsked] = React.useState(entry?.labs_asked || '');
-    const [diagnosis, setDiagnosis] = React.useState(entry?.diagnosis || '');
-    const [treatment, setTreatment] = React.useState(entry?.treatment || '');
-    const [notes, setNotes] = React.useState(entry?.notes || '');
-    const [error, setError] = React.useState<string | null>(null);
+  const [mainSymptoms, setMainSymptoms] = React.useState(entry?.main_symptoms ?? '');
+  const [conditionDescription, setConditionDescription] = React.useState(entry?.condition_description ?? '');
+  const [labsAsked, setLabsAsked] = React.useState(entry?.labs_asked ?? '');
+  const [diagnosis, setDiagnosis] = React.useState(entry?.diagnosis ?? '');
+  const [treatment, setTreatment] = React.useState(entry?.treatment ?? '');
+  const [notes, setNotes] = React.useState(entry?.notes ?? '');
+  const [error, setError] = React.useState<string | null>(null);
+  const [loading, setLoading] = React.useState(false);
 
-    const handleSubmit = async () => {
-        try {
-            await updateEntry({
-                entry_id: Number(params.entryId),
-                patient_id: Number(params.patientId),
-                main_symptoms: mainSymptoms,
-                condition_description: conditionDescription,
-                labs_asked: labsAsked,
-                diagnosis,
-                treatment,
-                notes,
-            });
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+    try {
+      await updateEntry({
+        entry_id: params.entryId!,
+        patient_id: params.patientId!,
+        main_symptoms: mainSymptoms,
+        condition_description: conditionDescription,
+        labs_asked: labsAsked,
+        diagnosis,
+        treatment,
+        notes,
+      });
+      navigate(-1);
+    } catch {
+      setError('Error saving entry. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
-            onSuccess?.();
-            console.log('Entry saved successfully');
-            navigate(-1);
-        } catch (err: any) {
-            setError('Error saving entry.');
-            console.error(err);
-        }
-    };
-
-    return (
-        <div className={styles.mainContainer}>
-            <Button
-                onClick={() => navigate(-1)}
-                className={styles.backButton}
-            >
-                Back
-            </Button>
-            <div className={styles.formContainer}>
-                <div className={styles.modalDiv}>
-                    <h3>Main symptoms</h3>
-                    <Input
-                        placeholder='i.e: Headache, fever'
-                        onChange={(e) => setMainSymptoms(e.target.value)}
-                        value={mainSymptoms}
-                        className={styles.input}
-                    />
-                </div>
-                <div className={styles.modalDiv}>
-                    <h3>Description</h3>
-                    <Input
-                        placeholder='i.e: Patient has been experiencing...'
-                        onChange={(e) => setConditionDescription(e.target.value)}
-                        value={conditionDescription}
-                        className={styles.input}
-                    />
-                </div>
-                <div className={styles.modalDiv}>
-                    <h3>Diagnosis</h3>
-                    <Input
-                        placeholder='i.e: Flu'
-                        onChange={(e) => setDiagnosis(e.target.value)}
-                        value={diagnosis}
-                        className={styles.input}
-                    />
-                </div>
-                <div className={styles.modalDiv}>
-                    <h3>Labs asked</h3>
-                    <Input
-                        placeholder='i.e: Blood test'
-                        onChange={(e) => setLabsAsked(e.target.value)}
-                        value={labsAsked}
-                        className={styles.input}
-                    />
-                </div>
-                <div className={styles.modalDiv}>
-                    <h3>Treatment</h3>
-                    <Input
-                        placeholder='i.e: Ibuprofen 400mg'
-                        onChange={(e) => setTreatment(e.target.value)}
-                        value={treatment}
-                        className={styles.input}
-                    />
-                </div>
-                <div className={styles.modalDiv}>
-                    <h3>Notes</h3>
-                    <Input
-                        placeholder=''
-                        onChange={(e) => setNotes(e.target.value)}
-                        value={notes}
-                        className={styles.input}
-                    />
-                </div>
-            </div>
-            <Button
-                onClick={() => handleSubmit()}
-            >
-                Submit
-            </Button>
+  return (
+    <div className={styles.page}>
+      <div className={styles.pageHeader}>
+        <button className={styles.backBtn} onClick={() => navigate(-1)}>
+          <BackIcon /> Back
+        </button>
+        <div>
+          <h1 className={styles.title}>Edit Entry</h1>
+          <p className={styles.subtitle}>Update medical entry details</p>
         </div>
-    )
+      </div>
+
+      <div className={styles.card}>
+        <form className={styles.form} onSubmit={handleSubmit}>
+          <div className={styles.grid}>
+            <div className={`${styles.field} ${styles.fullWidth}`}>
+              <label className={styles.label}>Main Symptoms</label>
+              <input
+                className={styles.input}
+                value={mainSymptoms}
+                onChange={(e) => setMainSymptoms(e.target.value)}
+                placeholder="e.g. Headache, fever, fatigue"
+                required
+              />
+            </div>
+
+            <div className={`${styles.field} ${styles.fullWidth}`}>
+              <label className={styles.label}>Description</label>
+              <textarea
+                className={`${styles.input} ${styles.textarea}`}
+                value={conditionDescription}
+                onChange={(e) => setConditionDescription(e.target.value)}
+                placeholder="Patient has been experiencing…"
+                rows={3}
+              />
+            </div>
+
+            <div className={styles.field}>
+              <label className={styles.label}>Diagnosis</label>
+              <input
+                className={styles.input}
+                value={diagnosis}
+                onChange={(e) => setDiagnosis(e.target.value)}
+                placeholder="e.g. Influenza"
+              />
+            </div>
+
+            <div className={styles.field}>
+              <label className={styles.label}>Labs Requested</label>
+              <input
+                className={styles.input}
+                value={labsAsked}
+                onChange={(e) => setLabsAsked(e.target.value)}
+                placeholder="e.g. CBC, metabolic panel"
+              />
+            </div>
+
+            <div className={`${styles.field} ${styles.fullWidth}`}>
+              <label className={styles.label}>Treatment</label>
+              <textarea
+                className={`${styles.input} ${styles.textarea}`}
+                value={treatment}
+                onChange={(e) => setTreatment(e.target.value)}
+                placeholder="e.g. Ibuprofen 400mg every 8h"
+                rows={2}
+              />
+            </div>
+
+            <div className={`${styles.field} ${styles.fullWidth}`}>
+              <label className={styles.label}>Notes</label>
+              <textarea
+                className={`${styles.input} ${styles.textarea}`}
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)}
+                placeholder="Additional observations…"
+                rows={2}
+              />
+            </div>
+          </div>
+
+          {error && <p className={styles.error}>{error}</p>}
+
+          <div className={styles.actions}>
+            <button type="button" className={styles.cancelBtn} onClick={() => navigate(-1)}>
+              Cancel
+            </button>
+            <button type="submit" className={styles.submitBtn} disabled={loading}>
+              {loading ? "Saving…" : "Save Changes"}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
 }

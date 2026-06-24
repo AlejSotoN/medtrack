@@ -1,11 +1,14 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../services/auth.client";
 import { saveAuth } from "../../utils/auth";
+import { useAuth } from "../../contexts/AuthContext";
 import styles from "./Auth.module.css";
+import logo from "../../assets/medtrack_logo.png";
 
 export default function Auth() {
   const navigate = useNavigate();
+  const { setUser } = useAuth();
 
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -18,13 +21,11 @@ export default function Auth() {
     setLoading(true);
 
     try {
-      const { token, expiresIn } = await login(username, password);
-      console.log("LOGIN RESPONSE:", { token, expiresIn });
+      const { token, expiresIn, role, clinicId, doctorId } = await login(username, password);
       saveAuth(token, expiresIn);
-      console.log("TOKEN AFTER SAVE:", localStorage.getItem("medtrack_token"));
+      setUser({ id: doctorId ?? clinicId ?? "", role, clinicId, doctorId });
       navigate("/dashboard", { replace: true });
     } catch {
-      console.log("LOGIN ERROR", error);
       setError("Invalid username or password");
     } finally {
       setLoading(false);
@@ -33,40 +34,53 @@ export default function Auth() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.card}>
-        <h1 className={styles.title}>MedTrack</h1>
-        <p className={styles.subtitle}>
-          Secure access to patient records
-        </p>
+      <div>
+        <div className={styles.logoWrap}>
+          <img src={logo} alt="MedTrack" className={styles.logo} />
+        </div>
 
-        <form onSubmit={handleSubmit}>
-          <div className={styles.field}>
-            <label className={styles.label}>Username</label>
-            <input
-              className={styles.input}
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-          </div>
+        <div className={styles.card}>
+          <h1 className={styles.title}>Welcome back</h1>
+          <p className={styles.subtitle}>Sign in to your MedTrack account</p>
 
-          <div className={styles.field}>
-            <label className={styles.label}>Password</label>
-            <input
-              className={styles.input}
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
+          <form onSubmit={handleSubmit}>
+            <div className={styles.field}>
+              <label className={styles.label}>Username or Email</label>
+              <input
+                className={styles.input}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                autoComplete="username"
+                required
+              />
+            </div>
 
-          <button className={styles.button} disabled={loading}>
-            {loading ? "Signing in…" : "Login"}
-          </button>
+            <div className={styles.field}>
+              <label className={styles.label}>Password</label>
+              <input
+                className={styles.input}
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                autoComplete="current-password"
+                required
+              />
+            </div>
 
-          {error && <div className={styles.error}>{error}</div>}
-        </form>
+            <button className={styles.button} disabled={loading}>
+              {loading ? "Signing in…" : "Sign In"}
+            </button>
+
+            {error && <div className={styles.error}>{error}</div>}
+          </form>
+
+          <p className={styles.footerText}>
+            Don't have an account?{" "}
+            <Link to="/register" className={styles.footerLink}>
+              Create one
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );

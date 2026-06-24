@@ -1,10 +1,11 @@
 import React from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import styles from './Navbar.module.css'
 import logo from '../../../assets/medtrack_logo.png'
+
 export interface NavbarTab {
-  label: string,
-  route: string,
+  label: string;
+  route: string;
   icon?: string;
 }
 
@@ -13,34 +14,25 @@ export interface NavbarProps {
   onTabClick: (route: string) => void;
   activeRoute: string;
   className?: string;
-  tabStyle?: string;
-  activeTabStyle?: string;
 }
 
-export default function Navbar({
-  tabs,
-  onTabClick,
-  activeRoute,
-  className,
-  tabStyle,
-  activeTabStyle
-}: NavbarProps) {
-  const navigate = useNavigate();
-
+export default function Navbar({ tabs, onTabClick, activeRoute }: NavbarProps) {
   return (
-    <nav
-      className={styles.navbarNav}>
-      <img src={logo} alt="medtrack logo" width="120px" height="60px" />
-      {tabs.map(({ label, route, icon }, index) => (
-        <button
-          key={index || route}
-          onClick={() => { onTabClick(route); }}
-          className={styles.navbarButton}
-        >
-          {label}
-        </button>
-      ))}
-    </nav>
-  )
+    <div className={styles.navbarWrap}>
+      <nav className={styles.navbarNav}>
+        <img src={logo} alt="MedTrack" className={styles.logo} />
+        <div className={styles.tabs}>
+          {tabs.map(({ label, route }, index) => (
+            <button
+              key={index}
+              onClick={() => onTabClick(route)}
+              className={`${styles.navbarButton} ${activeRoute === route ? styles.active : ''}`}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+      </nav>
+    </div>
+  );
 }
-
