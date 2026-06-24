@@ -1,27 +1,48 @@
-// src/data.ts
 import { Patient } from './types';
 import api from './api';
 
-const API_URL = import.meta.env.VITE_API_URL;
-
 export async function getPatients(): Promise<Patient[]> {
-    const response = await api.get(`${API_URL}/dashboard`)
-    const result: Patient[] = response.data;
-    return result;
+    const response = await api.get('/dashboard');
+    return response.data as Patient[];
 }
 
 export async function getPatient(id: string): Promise<Patient | undefined> {
-    const response = await api.get(`${API_URL}/dashboard/patient/${id}`)
-    const result: Patient = response.data;
-    return result;
+    const response = await api.get(`/dashboard/patient/${id}`);
+    return response.data as Patient;
 }
 
-export async function postPatient(newPatient: Partial<Patient>): Promise<Patient> {
-    const response = await api.post(`${API_URL}/dashboard`, newPatient)
-    const result: Patient = response.data;
-    return result;
+type NewPatientPayload = {
+    firstName: string;
+    lastName: string;
+    dateOfBirth: string;
+    gender?: string;
+    doctorId?: string;
+};
+
+export async function postPatient(newPatient: NewPatientPayload): Promise<Patient> {
+    const response = await api.post('/dashboard', newPatient);
+    return response.data as Patient;
 }
 
 export async function deletePatient(id: string): Promise<void> {
-    await api.delete(`${API_URL}/dashboard/${id}`);
+    await api.delete(`/dashboard/${id}`);
+}
+
+export async function patchPatientMeta(
+    patient: Patient,
+    meta: { lastVisit?: string; nextFollowup?: string }
+): Promise<void> {
+    await api.patch(`/dashboard/${patient.patient_id}`, {
+        dateOfBirth: patient.date_of_birth,
+        gender: patient.gender,
+        address: patient.address,
+        phoneNum: patient.phone_num,
+        lastVisit: meta.lastVisit,
+        nextFollowup: meta.nextFollowup,
+    });
+}
+
+export async function uploadPatientAvatar(patientId: string, dataUrl: string): Promise<Patient> {
+    const response = await api.patch(`/dashboard/${patientId}/avatar`, { profilePicture: dataUrl });
+    return response.data as Patient;
 }

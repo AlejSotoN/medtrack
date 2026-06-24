@@ -1,26 +1,80 @@
-.medicalEntries {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    width: 100%;
-    height: fit-content;
-    border-radius: 8px;
-    padding: 0.5rem;
+.page {
+  display: block;
+  padding: 2rem 2.5rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.entryCard {
-    width: 100%;
-    height: fit-content;
-    background-color: var(--color-border);
-    border-radius: 8px;
-    padding-left: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
+.entriesSection {
+  display: block;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(59, 130, 246, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-top: 2rem;
 }
 
+.sectionHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.sectionTitle {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.6rem;
+}
 
 .title {
-    align-self: start;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #e2e8f0;
+  margin: 0;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.72rem;
+  font-weight: 600;
+  background: rgba(59, 130, 246, 0.15);
+  color: #93c5fd;
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  border-radius: 999px;
+  padding: 0.1rem 0.55rem;
+}
+
+.addBtn {
+  background: linear-gradient(135deg, #2563eb, #0284c7);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.45rem 1rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  white-space: nowrap;
+}
+
+.addBtn:hover {
+  opacity: 0.88;
+}
+
+.inlineForm {
+  display: block;
+  padding: 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(30, 41, 59, 0.3);
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding: 1.25rem 1rem;
+  }
 }
