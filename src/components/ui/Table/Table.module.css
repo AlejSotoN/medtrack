@@ -1,57 +1,186 @@
+.tableWrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
 .table {
   width: 100%;
-  height: 100%;
   border-collapse: collapse;
-  background-color: var(--color-border);
-  color: white;
-  border-radius: 8px;
+  color: #e2e8f0;
+  font-size: 0.875rem;
 }
 
-.table th,
+.table thead {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: rgba(15, 23, 42, 0.97);
+}
+
+.table th {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: rgba(148, 163, 184, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  white-space: nowrap;
+}
+
 .table td {
-
-  padding: 1rem 0.5rem 0.5rem 1rem;
-  text-align: start;
-  margin: 0.5rem;
-  
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  color: #cbd5e1;
+  vertical-align: middle;
 }
 
-.blueButton {
-    background-color: #2563eb; /* blue-600 */
-    color: white;
-    padding: 0.5rem 1rem;
-    margin: 0 0.5rem;
-    border: none;
-    border-radius: 6px;
-    font-size: 0.9rem;
-    cursor: pointer;
-    font-weight: 500;
-    transition: background-color 0.2s ease;
-  }
-  
-  .blueButton:hover {
-    background-color: #1d4ed8; /* blue-700 */
-  }
-  
-  .editPatientButton {
-    background-color: var(--color-warning); 
-    color: black;
-    padding: 0.5rem 1rem;
-    margin: 0 0.5rem;
-    border: none;
-    border-radius: 6px;
-    font-size: 0.9rem;
-    cursor: pointer;
-    font-weight: 500;
-    transition: background-color 0.2s ease;
-  }
+.table tbody tr:nth-child(even) {
+  background: rgba(30, 41, 59, 0.25);
+}
 
-  .editPatientButton:hover {
-    background-color: lightyellow;
-  }
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
 
-  .td {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+.table tbody tr:hover {
+  background: rgba(59, 130, 246, 0.06);
+}
+
+/* Name cell — always visible */
+.nameCell {
+  min-width: 150px;
+}
+
+.fullName {
+  display: block;
+  font-weight: 500;
+  color: #e2e8f0;
+}
+
+/* Age shown inline with name on mobile only */
+.ageMobile {
+  display: none;
+  font-size: 0.75rem;
+  color: rgba(148, 163, 184, 0.55);
+  margin-top: 0.15rem;
+}
+
+/* Gender badge */
+.genderBadge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.1);
+  color: rgba(148, 163, 184, 0.8);
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  white-space: nowrap;
+}
+
+.genderMale {
+  background: rgba(59, 130, 246, 0.1);
+  color: #93c5fd;
+  border-color: rgba(59, 130, 246, 0.2);
+}
+
+.genderFemale {
+  background: rgba(236, 72, 153, 0.1);
+  color: #f9a8d4;
+  border-color: rgba(236, 72, 153, 0.2);
+}
+
+/* Next follow-up highlight when set */
+.followupActive {
+  color: #86efac;
+  font-weight: 500;
+}
+
+/* ── Progressive column visibility ── */
+/* Hidden by default, revealed at breakpoints */
+.colSm,
+.colMd,
+.colLg {
+  display: none;
+}
+
+/* ≥ 480px: age + gender */
+@media (min-width: 480px) {
+  .colSm {
+    display: table-cell;
   }
+}
+
+/* ≥ 700px: last visit */
+@media (min-width: 700px) {
+  .colMd {
+    display: table-cell;
+  }
+}
+
+/* ≥ 1024px: next follow-up + phone */
+@media (min-width: 1024px) {
+  .colLg {
+    display: table-cell;
+  }
+}
+
+/* Show age under name on mobile instead of its own column */
+@media (max-width: 479px) {
+  .ageMobile {
+    display: block;
+  }
+}
+
+/* ── Actions column ── */
+.actionsCol {
+  width: 1%;
+  white-space: nowrap;
+}
+
+.actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.viewBtn {
+  background: rgba(59, 130, 246, 0.15);
+  color: #93c5fd;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 6px;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+
+.viewBtn:hover {
+  background: rgba(59, 130, 246, 0.25);
+  color: #bfdbfe;
+}
+
+.editBtn {
+  background: transparent;
+  color: rgba(148, 163, 184, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  white-space: nowrap;
+}
+
+.editBtn:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #e2e8f0;
+  border-color: rgba(255, 255, 255, 0.2);
+}

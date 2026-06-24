@@ -1,114 +1,89 @@
-.mainContainer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 90vw;
-}
-
-.section {
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    height: max-content;
-    width:90vw;
-    top: 5rem;
-    left: 4rem;
-}
-
-.ul {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    margin: 0;
-    padding: 0;
-}
-
-.div {
-    min-width: none;
-    min-height: 5vh;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-    padding: 0;
-    margin: 0;
-    
-}
-
-.h1 {
+.page {
+  display: block;
+  padding: 2rem 2.5rem;
   width: 100%;
+  box-sizing: border-box;
+}
+
+.header {
+  margin-bottom: 1.75rem;
+}
+
+.title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #f8fafc;
   margin: 0;
 }
 
-.h2 {
-    background-color: var(--color-border);
-    padding: 1rem;
-    width: fit-content;
-    margin: 0;
-    border-radius: 10%;
+.statsRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.75rem;
 }
 
-.inputSection {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    margin: 0.5rem auto;
+.tableSection {
+  display: block;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(59, 130, 246, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
 }
 
-.input {
-    background-color: var(--color-border);
-    border-radius: 5px;
-    border: none;
-    color: var(--color-foreground);
-    width: 70%;
-    padding: 0.4rem;
-    height: 2rem;
-    max-width: 50vw;
-    min-width: 30vw;
+.toolbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.input:focus {
-    outline: none;
-    border: 1px solid var(--color-foreground);
-    
+.searchInput {
+  flex: 1;
+  max-width: 320px;
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #e2e8f0;
+  font-size: 0.875rem;
+  font-family: inherit;
+  padding: 0.5rem 0.85rem;
+  outline: none;
+  transition: border-color 0.15s;
 }
 
-.modalInput {
-    background-color: var(--color-border);
-    border-radius: 5px;
-    border: none;
-    color: var(--color-foreground);
-    width: 5rem;
-    min-width: 3rem;
-    padding: 0.3rem;
-    height: 2rem;
+.searchInput::placeholder {
+  color: rgba(148, 163, 184, 0.45);
 }
 
-.modalContent {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    margin: 1rem auto;
-}
-.modalContainer {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
+.searchInput:focus {
+  border-color: rgba(59, 130, 246, 0.5);
 }
 
-.modalDiv {
-    margin: 0.5rem;
+.inlineForm {
+  display: block;
+  padding: 1.5rem 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(30, 41, 59, 0.3);
 }
 
-.leftSide {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    width: 100%;
+.empty {
+  padding: 3rem;
+  text-align: center;
+  color: rgba(148, 163, 184, 0.45);
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding: 1.25rem 1rem;
+  }
+
+  .statsRow {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
 }
